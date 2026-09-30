@@ -50,7 +50,7 @@
     border-radius: 10px; padding: 6px; background: #3a2e1e;
     box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 0 0 2px #5a4830;
   }
-  canvas { display: block; width: 100%; height: auto; border-radius: 6px; }
+  canvas { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; border-radius: 6px; }
   /* ===================== EKRANY (menu, ustawienia, pauza, zwycięstwo) ===================== */
   .screen {
     position: fixed; inset: 0; z-index: 20; display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch;
@@ -65,11 +65,6 @@
   #splash { background: radial-gradient(ellipse at 50% 35%, rgba(16,22,13,.45), rgba(8,11,7,.92) 75%); }
   #pause { z-index: 40; }
   #victory { z-index: 30; }
-  .hint { color: var(--muted); font-size: 13px; text-align: center; margin-top: 10px; }
-  .touchkeys { display: none; }
-  body.ctl-touch .keys { display: none !important; }
-  body.ctl-touch .touchkeys { display: block; }
-  kbd { background: var(--panel2); border: 1px solid #4a573f; border-bottom-width: 2px; border-radius: 4px; padding: 0 6px; font-family: inherit; font-size: 12px; color: var(--text); margin: 0 1px; }
 
   button {
     font: inherit; font-weight: 600; font-size: 15px; border: 1px solid #3f4c35; border-radius: 8px; padding: 9px 14px;
@@ -152,11 +147,6 @@
   }
   input.name:focus { border-color: var(--olive-hi); box-shadow: 0 0 0 3px rgba(143,174,82,.25); }
   input.name::placeholder { color: #6f7662; }
-  .ptabs { display: flex; gap: 8px; margin-bottom: 14px; }
-  .ptab { flex: 1; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: #1b2317; border: 2px solid #34402c; text-align: left; }
-  .ptab.on { border-color: var(--pc); background: #232d1d; box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 25%, transparent); }
-  .ptab img { width: 36px; height: 36px; }
-  .ptab b { display: block; font-size: 14px; } .ptab small { color: var(--muted); font-weight: 500; font-size: 12px; }
   .tankcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   @media (max-width: 560px) { .tankcards { grid-template-columns: 1fr; } }
   .tcard {
@@ -210,6 +200,24 @@
   .installhint b { color: var(--text); }
   .installhint a { color: var(--khaki); font-weight: 700; }
   /* niskie ekrany (telefon poziomo) – wszystko ciaśniej, żeby najważniejsze przyciski były widoczne */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .duo .field { margin-bottom: 0; }
+  @media (max-width: 480px) { .duo { grid-template-columns: 1fr; } }
+  /* tablety: menu mieści się na jednym ekranie bez przewijania */
+  @media (pointer: coarse) and (max-height: 900px) {
+    .setup { gap: 10px; }
+    .topbar h2 { font-size: 24px; }
+    .panel { padding: 14px 16px; }
+    .panel h3 { margin-bottom: 10px; }
+    .panel h3.mt { margin-top: 14px; padding-top: 12px; }
+    .field { margin-bottom: 10px; gap: 5px; }
+    .seg button { min-height: 38px; padding: 7px 8px; }
+    input.name { padding: 9px 12px; }
+    .tcard { padding: 10px 10px 12px; }
+    .tcard img { width: 70px; height: 70px; }
+    .tcard .tdesc { min-height: 0; }
+    .bottombar { padding: 9px 12px 9px 16px; }
+  }
   @media (max-height: 560px) {
     .screen { padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
     .splash { gap: 12px; }
@@ -232,7 +240,6 @@
     .field { margin-bottom: 10px; gap: 5px; }
     .seg button { min-height: 36px; padding: 6px; font-size: 13px; }
     input.name { padding: 8px 11px; font-size: 15px; }
-    .ptabs { margin-bottom: 10px; }
     .tcard { padding: 9px; gap: 3px; }
     .tcard img { width: 60px; height: 60px; }
     .tcard .tname { font-size: 17px; }
@@ -242,7 +249,6 @@
     .summary { font-size: 13px; }
     .summary span { display: none; }
     .bottombar .cta { font-size: 19px; padding: 8px 28px; }
-    .hint { display: none; }
     .pbox { padding: 16px; gap: 8px; }
     .pbox h2 { font-size: 28px; margin-bottom: 2px; }
     .menu-btn { padding: 9px; font-size: 14px; }
@@ -256,17 +262,18 @@
   }
   body.tm #touch { display: block; }
   html { touch-action: manipulation; background: #161b14; }
-  body.playing { background: radial-gradient(ellipse at top, #243020 0%, var(--bg) 60%); }
-  body.playing { position: fixed; inset: 0; overflow: hidden; }
   body.tm, body.tm * { touch-action: none; }
-  body.tm { overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; overscroll-behavior: none; }
-  body.tm #help { display: none; }
+  body.tm { position: fixed; inset: 0; overflow: hidden; -webkit-user-select: none; user-select: none; overscroll-behavior: none; }
   body.tm #hud { padding: 4px; min-height: 0; gap: 4px; }
   body.tm .card { padding: 2px 8px 2px 5px; font-size: 12px; }
   body.tm .card .sw { height: 20px; width: 7px; }
   body.tm .card .tp { display: none; }
   body.tm .card .pts { font-size: 16px; }
-  body.tm #wrap { width: min(100vw, calc((100vh - 40px) * 1.5)); width: min(100vw, calc((100dvh - 40px) * 1.5)); padding: 3px; border-radius: 6px; }
+  /* w trakcie gry plansza wypełnia cały ekran, w proporcjach urządzenia (kamera pokazuje wycinek mapy) */
+  body.tm #wrap { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; padding: 0; border-radius: 0; box-shadow: none; background: #111; }
+  body.tm canvas { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; }
+  body.tm #hud { position: fixed; top: max(4px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 5; pointer-events: none; flex-wrap: nowrap; }
+  body.tm .card { background: rgba(20,26,17,.72); }
   .joy {
     position: absolute; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%;
     background: radial-gradient(circle, rgba(236,230,210,.10) 0%, rgba(236,230,210,.18) 70%, rgba(236,230,210,.28) 100%);
@@ -305,6 +312,7 @@
   <div class="joy idle" id="joyR"><div class="lbl"></div><div class="knob"></div></div>
   <button class="tbtn" id="tpause" aria-label="Pauza">II</button>
 </div>
+<div id="safeprobe" style="position:fixed;left:0;top:0;width:env(safe-area-inset-left);height:env(safe-area-inset-top);visibility:hidden;pointer-events:none"></div>
 <div id="rotate"><div class="ph"></div>Obróć urządzenie poziomo</div>
 
 <!-- ===================== EKRAN POWITALNY ===================== -->
@@ -315,7 +323,7 @@
       <div class="step">
         <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="#c8b77a" stroke-width="2.5" stroke-linejoin="round"><rect x="17" y="5" width="14" height="14" rx="3"/><rect x="3" y="23" width="14" height="14" rx="3"/><rect x="17" y="23" width="14" height="14" rx="3"/><rect x="31" y="23" width="14" height="14" rx="3"/><path d="M24 9v6M21 12l3-3 3 3" /></svg></div>
         <div><div class="st">1. Jedź i celuj</div>
-          <div class="tx touchkeys">Lewy joystick: jazda.<br>Prawy: przytrzymaj = strzał, przeciągnij = celowanie.</div>
+          <div class="tx">Lewy joystick: jazda.<br>Prawy: przytrzymaj = strzał, przeciągnij = celowanie.</div>
         </div>
       </div>
       <div class="step">
@@ -335,7 +343,6 @@
     <div class="installhint" id="installHint" hidden></div>
     <div class="installhint" id="otherEdition" hidden></div>
     <div id="cabinet"></div>
-    <div class="hint keys">Enter – graj &nbsp;·&nbsp; M – dźwięk wł./wył.</div>
   </div>
 </div>
 
@@ -345,16 +352,22 @@
     <div class="topbar"><button class="ghost" id="back">← Menu</button><h2>Przygotuj bitwę</h2><span></span></div>
     <div class="setup-grid">
       <section class="panel">
-        <h3 id="tanktitle">Twój czołg</h3>
-        <div class="ptabs" id="ptabs"></div>
-        <label class="field"><span class="lab" id="namelab">Twoje imię</span>
+        <h3>Twój czołg</h3>
+        <label class="field"><span class="lab">Twoje imię</span>
           <input class="name" id="nameInput" maxlength="12" autocomplete="off" spellcheck="false"></label>
         <div class="field"><span class="lab">Wybierz czołg</span><div class="tankcards" id="tankcards"></div></div>
+        <h3 class="mt">Ustawienia</h3>
+        <div class="duo">
+          <div class="field"><span class="lab">Układ joysticków</span>
+            <div class="seg"><button data-lay="left">Jazda z lewej</button><button data-lay="right">Jazda z prawej</button></div></div>
+          <div class="field"><span class="lab">Dźwięk</span>
+            <div class="seg"><button data-snd="1">Włączony</button><button data-snd="0">Wyłączony</button></div></div>
+        </div>
       </section>
       <section class="panel">
         <h3>Bitwa</h3>
         <div class="field"><span class="lab">Liczba botów</span>
-          <div class="seg"><button data-bots="0">0</button><button data-bots="1">1</button><button data-bots="2">2</button><button data-bots="3">3</button></div></div>
+          <div class="seg"><button data-bots="1">1</button><button data-bots="2">2</button><button data-bots="3">3</button></div></div>
         <div class="field"><span class="lab">Poziom botów</span>
           <div class="seg"><button data-diff="easy">Łatwy</button><button data-diff="normal">Normalny</button><button data-diff="hard">Trudny</button></div></div>
         <div class="field"><span class="lab">Mapa</span>
@@ -372,15 +385,9 @@
           <span class="note" id="rulenote"></span></div>
         <div class="field"><span class="lab">Mecz do</span>
           <div class="seg"><button data-win="3">3 wygranych</button><button data-win="5">5</button><button data-win="7">7</button></div></div>
-        <h3 class="mt">Ustawienia</h3>
-        <div class="field" id="layoutrow"><span class="lab">Układ joysticków</span>
-          <div class="seg"><button data-lay="left">Jazda z lewej</button><button data-lay="right">Jazda z prawej</button></div></div>
-        <div class="field"><span class="lab">Dźwięk</span>
-          <div class="seg"><button data-snd="1">Włączony</button><button data-snd="0">Wyłączony</button></div></div>
       </section>
     </div>
     <div class="bottombar"><div class="summary" id="summary"></div><button class="cta" id="start">START</button></div>
-    <div class="hint keys">Enter – start &nbsp;·&nbsp; Esc – wróć do menu</div>
   </div>
 </div>
 
@@ -392,7 +399,6 @@
     <button class="menu-btn" id="p-restart">Zacznij mecz od nowa</button>
     <button class="menu-btn" id="p-setup">Zmień ustawienia</button>
     <button class="menu-btn" id="p-menu">Menu główne</button>
-    <div class="hint keys">Esc lub P – wznów &nbsp;·&nbsp; M – dźwięk</div>
   </div>
 </div>
 
@@ -408,7 +414,6 @@
       <button class="menu-btn" id="v-setup">Zmień ustawienia</button>
       <button class="menu-btn" id="tomenu">Menu główne</button>
     </div>
-    <div class="hint keys">Enter – rewanż &nbsp;·&nbsp; Esc – menu</div>
   </div>
 </div>
 
@@ -483,7 +488,7 @@ const THEMES = {
 const RULES = {
   bushes:  { name: 'Kryjówki w krzakach!', desc: 'Przez krzaki można przejechać i się w nich schować. Pociski przez nie przelatują.' },
   wind:    { name: 'Wiatr!',               desc: 'Wiatr znosi pociski. Kierunek i siłę pokazuje strzałka u góry.' },
-  fire:    { name: 'Płonące samochody!',   desc: 'Nie podjeżdżaj za blisko płonących wraków – żar zabiera 1 punkt pancerza co sekundę.' },
+  fire:    { name: 'Płonące samochody!',   desc: 'Nie podjeżdżaj za blisko płonących wraków – żar parzy od razu i zabiera punkt pancerza co chwilę.' },
   sand:    { name: 'Grząski piasek!',      desc: 'Po długiej jeździe czołg grzęźnie. Zatrzymaj się albo cofnij, żeby się uwolnić.' },
   slide:   { name: 'Ślisko!',              desc: 'Czołgi ślizgają się, a na zamarzniętych kałużach jeszcze bardziej.' },
   ammo:    { name: 'Skrzynie z amunicją!', desc: 'Skrzynie wybuchają, gdy na nie najedziesz albo je trafisz, i ranią czołgi w pobliżu. Worki z piaskiem pochłaniają pociski.' },
@@ -492,10 +497,6 @@ const RULES = {
 };
 
 const COLORS = ['#4f9a3a', '#2f6fd1', '#d13f2f', '#e8a02a', '#8a4fc9'];
-const CONTROLS = [
-  { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight', fire: 'Space' },
-  { up: 'KeyW', down: 'KeyS', left: 'KeyA', right: 'KeyD', fire: 'KeyQ' },
-];
 const DIFF = {
   easy:   { react: 0.45, err: 0.35, bank: 0.0, turn: 0.65, fireChance: 0.5 },
   normal: { react: 0.25, err: 0.12, bank: 0.3, turn: 0.85, fireChance: 0.85 },
@@ -503,7 +504,7 @@ const DIFF = {
 };
 
 // ===================== STAN GRY =====================
-let screen = 'splash', editP = 0;          // widoczny ekran, gracz edytowany w ustawieniach
+let screen = 'splash';                     // widoczny ekran
 let demo = false, running = false, paused = false, matchOver = false;
 let roundOver = false, endTimer = 0, bannerSub = '', banner = '', bannerT = 0, roundNo = 0;
 let tanks = [], bullets = [], particles = [], scores = [], roster = [];
@@ -513,36 +514,55 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 // canvas w rozdzielczości ekranu (Retina / iPad), maks. 2× – współrzędne gry zawsze W × H
 let renderScale = 1;
+// UIW × UIH – układ współrzędnych ekranu (wysokość zawsze 640, szerokość wg proporcji ekranu)
+let UIW = W, UIH = H;
 function fitCanvas() {
-  const k = clamp((window.devicePixelRatio || 1) * canvas.clientWidth / W, 1, 2);
-  const q = Math.round(k * 4) / 4;
-  if (q === renderScale && canvas.width === W * q) return;
-  renderScale = q; canvas.width = W * q; canvas.height = H * q;
+  const cw = canvas.clientWidth || W, ch = canvas.clientHeight || H;
+  const pr = Math.min(window.devicePixelRatio || 1, 2);
+  const pw = Math.round(cw * pr), ph = Math.round(ch * pr);
+  if (canvas.width === pw && canvas.height === ph) return;
+  canvas.width = pw; canvas.height = ph;
+  UIH = H; UIW = H * cw / ch;
+  renderScale = ph / UIH;
+  // minimapa: omija wycięcie ekranu (notch) i jest czytelna także na telefonie
+  const probe = document.getElementById('safeprobe'), toUI = UIH / ch;
+  MM.x = 10 + (probe ? probe.offsetWidth : 0) * toUI; MM.y = 10 + (probe ? probe.offsetHeight : 0) * toUI;
+  MM.w = clamp(150 * toUI, 200, 290); MM.h = MM.w * H / W;
   needsDraw = true;
 }
 // warstwy rysowane raz na rundę
 const ground = document.createElement('canvas'), gctx = ground.getContext('2d');
 const scenery = document.createElement('canvas'), sctx = scenery.getContext('2d');
 // ===================== KAMERA (zoom w trakcie gry) =====================
-// W grze widać 1/4 mapy (2× powiększenie), kamera jedzie za czołgiem gracza. W menu – cała mapa.
-const ZOOM = 2;
-const cam = { x: 0, y: 0, z: 1, snap: true };
+// W grze widać ok. 1/4 mapy w proporcjach ekranu, kamera spokojnie jedzie za czołgiem gracza. W menu – cała mapa.
+const cam = { x: 0, y: 0, z: 1, cx: W / 2, cy: H / 2, fx: W / 2, fy: H / 2, snap: true };
 // ziemię i czołgi rysujemy gęściej, żeby po powiększeniu nie były rozmyte (maks. 3×, żeby oszczędzać pamięć telefonu)
-const detailScale = () => Math.min(3, renderScale * ZOOM);
+const detailScale = () => Math.min(3, Math.min(window.devicePixelRatio || 1, 2) * 2.4);
+function viewZoom() { // ile razy powiększyć, żeby na ekranie była ok. 1/4 powierzchni mapy
+  const a = UIW / UIH;
+  let vh = Math.sqrt(W * H / 4 / a), vw = vh * a;
+  if (vw > W) { vw = W; vh = vw / a; }
+  if (vh > H) vh = H;
+  return UIH / vh;
+}
 function updateCamera(dt) {
-  const z = running && !demo ? ZOOM : 1;
+  if (!(running && !demo)) { cam.x = cam.y = 0; cam.z = 1; cam.snap = true; return; }
   const me = tanks.find(t => !t.isBot);
-  const vw = W / z, vh = H / z;
-  let tx = 0, ty = 0;
-  if (z > 1 && me) {
-    // patrzymy trochę do przodu, w kierunku jazdy
-    const ahead = me.alive ? 60 : 0;
-    tx = clamp(me.x + Math.cos(me.a) * ahead - vw / 2, 0, W - vw);
-    ty = clamp(me.y + Math.sin(me.a) * ahead - vh / 2, 0, H - vh);
+  if (!me) return;
+  cam.z = viewZoom();
+  const vw = UIW / cam.z, vh = UIH / cam.z;
+  if (cam.snap) { cam.cx = cam.fx = me.x; cam.cy = cam.fy = me.y; cam.snap = false; }
+  if (me.alive) {
+    // strefa spokoju: póki czołg jeździ blisko środka ekranu, kamera stoi
+    const dzx = vw * 0.16, dzy = vh * 0.11;
+    if (me.x > cam.cx + dzx) cam.cx = me.x - dzx; else if (me.x < cam.cx - dzx) cam.cx = me.x + dzx;
+    if (me.y > cam.cy + dzy) cam.cy = me.y - dzy; else if (me.y < cam.cy - dzy) cam.cy = me.y + dzy;
   }
-  if (cam.snap || cam.z !== z) { cam.x = tx; cam.y = ty; cam.z = z; cam.snap = false; return; }
-  const k = Math.min(1, dt * 5);
-  cam.x += (tx - cam.x) * k; cam.y += (ty - cam.y) * k;
+  cam.cx = clamp(cam.cx, vw / 2, W - vw / 2); cam.cy = clamp(cam.cy, vh / 2, H - vh / 2);
+  // łagodne dojeżdżanie kamery do celu
+  const k = Math.min(1, dt * 3.2);
+  cam.fx += (cam.cx - cam.fx) * k; cam.fy += (cam.cy - cam.fy) * k;
+  cam.x = clamp(cam.fx - vw / 2, 0, Math.max(0, W - vw)); cam.y = clamp(cam.fy - vh / 2, 0, Math.max(0, H - vh));
 }
 // ===================== MINIMAPA =====================
 // Lewy górny róg ekranu: ściany i przeszkody (rysowane raz na rundę), ramka widoku kamery i czołgi.
@@ -572,7 +592,7 @@ function drawMinimap() {
   ctx.drawImage(miniCv, x, y, w, h);
   // co jest teraz na ekranie
   ctx.strokeStyle = 'rgba(255,255,255,0.85)'; ctx.lineWidth = 1.2;
-  ctx.strokeRect(x + cam.x * f, y + cam.y * f, W / cam.z * f, H / cam.z * f);
+  ctx.strokeRect(x + cam.x * f, y + cam.y * f, UIW / cam.z * f, UIH / cam.z * f);
   for (const t of tanks) {
     const px = x + t.x * f, py = y + t.y * f;
     if (!t.alive) { // wrak
@@ -599,20 +619,13 @@ function sizeLayers() {
 }
 
 // ===================== KLAWIATURA =====================
-const keys = {};
-const clearKeys = () => { for (const k in keys) keys[k] = false; };
+// tylko skróty (np. iPad z klawiaturą): pauza, dźwięk, Enter / Esc w menu – czołgiem steruje się joystickami
 addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') { if (e.code === 'Enter' || e.code === 'Escape') e.target.blur(); return; }
   // przełączniki reagują tylko na pierwsze wciśnięcie, nie na autopowtarzanie przytrzymanego klawisza
   if (e.code === 'KeyM') { if (!e.repeat) { initAudio(); setSound(!soundOn); } return; }
-  if (screen === 'game') {
-    if (document.activeElement && document.activeElement.tagName === 'BUTTON') document.activeElement.blur();
-    keys[e.code] = true;
-    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code)) e.preventDefault();
-    if (!e.repeat && (e.code === 'Escape' || e.code === 'KeyP')) openPause();
-    return;
-  }
   if (e.repeat) { if (e.code === 'Enter') e.preventDefault(); return; }
+  if (screen === 'game') { if (e.code === 'Escape' || e.code === 'KeyP') openPause(); return; }
   if (screen === 'pause') { if (e.code === 'Escape' || e.code === 'KeyP') { e.preventDefault(); resumeGame(); } return; }
   if (screen === 'splash') { if (e.code === 'Enter') { e.preventDefault(); goSetup(); } return; }
   if (screen === 'setup') {
@@ -625,11 +638,7 @@ addEventListener('keydown', e => {
     else if (e.code === 'Escape') goSplash();
   }
 });
-addEventListener('keyup', e => {
-  keys[e.code] = false;
-  if (screen === 'game' && ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
-});
-addEventListener('blur', () => { clearKeys(); if (screen === 'game') openPause(); });
+addEventListener('blur', () => { if (screen === 'game') openPause(); });
 
 // ===================== POMOCNICZE =====================
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -1495,40 +1504,41 @@ function updateEngines(silent) {
 }
 
 // ===================== USTAWIENIA GRACZA =====================
-const DEFAULT_NAMES = ['Gracz 1', 'Gracz 2'];
+const DEFAULT_NAME = 'Gracz 1';
 // główny wskaźnik to palec (telefon, iPad); iPad w trybie „komputerowym” przedstawia się jak Mac
 const IS_TOUCH = (window.matchMedia && matchMedia('(pointer: coarse)').matches)
   || (navigator.maxTouchPoints > 1 && /Macintosh|iPad/.test(navigator.userAgent));
-let settings = { control: IS_TOUCH ? 'touch' : 'keys', layout: 'left', winRounds: 5, mode: 1, bots: 1, diff: 'normal', map: 'random', types: ['wilk', 'wilk'], names: DEFAULT_NAMES.slice() };
+let settings = { layout: 'left', winRounds: 5, bots: 1, diff: 'normal', map: 'random', type: 'wilk', name: DEFAULT_NAME };
 
-// wszystkie ustawienia w jednym wpisie; stare klucze (imiona, sterowanie) są przenoszone przy pierwszym uruchomieniu
-const SETTINGS_KEY = 'maze-tanks-mobile-ustawienia', OLD_KEYS = ['czolgi-imiona', 'czolgi-sterowanie'];
+// Wszystkie ustawienia w jednym wpisie. Wersja na komputer (maze_tanks_web) działa pod tym samym adresem i dzieli z nami
+// localStorage: przy pierwszym uruchomieniu bierzemy jej ustawienia albo stare klucze, ale niczego nie kasujemy – są jej potrzebne.
+const SETTINGS_KEY = 'maze-tanks-mobile-ustawienia';
 function loadSettings() {
   const read = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (_) { return null; } };
-  let s = read(SETTINGS_KEY) || read('maze-tanks-ustawienia'), migrated = false;
-  if (!s || typeof s !== 'object') {
-    const names = read(OLD_KEYS[0]), ctl = read(OLD_KEYS[1]) || {};
-    s = { names, control: ctl.control, layout: ctl.layout };
-    migrated = true;
+  const isObj = v => v && typeof v === 'object';
+  let s = read(SETTINGS_KEY), first = false;
+  if (!isObj(s)) {
+    first = true;
+    s = read('maze-tanks-ustawienia');
+    if (!isObj(s)) { const ctl = read('czolgi-sterowanie'); s = { names: read('czolgi-imiona'), layout: isObj(ctl) ? ctl.layout : null }; }
   }
   const oneOf = (v, list, def) => list.includes(v) ? v : def;
-  settings.control = oneOf(s.control, ['keys', 'touch'], settings.control);
   settings.layout = oneOf(s.layout, ['left', 'right'], settings.layout);
   settings.winRounds = oneOf(s.winRounds, [3, 5, 7], settings.winRounds);
-  settings.mode = oneOf(s.mode, [1, 2], settings.mode);
-  settings.bots = oneOf(s.bots, [0, 1, 2, 3], settings.bots);
+  settings.bots = oneOf(s.bots, [1, 2, 3], settings.bots);
   settings.diff = oneOf(s.diff, Object.keys(DIFF), settings.diff);
   settings.map = oneOf(s.map, ['random', ...Object.keys(THEMES)], settings.map);
-  if (Array.isArray(s.types)) s.types.forEach((t, i) => { if (i < 2 && TYPES[t]) settings.types[i] = t; });
-  if (Array.isArray(s.names)) s.names.forEach((n, i) => { if (n && i < 2) settings.names[i] = String(n).slice(0, 12); });
+  // starszy zapis (i wersja na komputer) trzyma czołgi i imiona w tablicach, po jednym na gracza
+  const type = s.type || (Array.isArray(s.types) && s.types[0]), name = s.name || (Array.isArray(s.names) && s.names[0]);
+  settings.type = oneOf(type, TYPE_KEYS, settings.type);
+  if (name) settings.name = String(name).slice(0, 12);
   if (typeof s.sound === 'boolean') soundOn = s.sound;
-  if (migrated) { saveSettings(); try { OLD_KEYS.forEach(k => localStorage.removeItem(k)); } catch (_) {} }
+  if (first) saveSettings();
 }
 function saveSettings() {
-  try { localStorage.setItem(SETTINGS_KEY, JSON.stringify({ v: 1, ...settings, sound: soundOn })); } catch (_) {}
+  try { localStorage.setItem(SETTINGS_KEY, JSON.stringify({ v: 2, ...settings, sound: soundOn })); } catch (_) {}
 }
 loadSettings();
-settings.control = 'touch'; settings.mode = 1; // wersja mobilna: zawsze dotyk, 1 gracz
 
 // gablota medali – złote medale za wygrane mecze, zapamiętane w przeglądarce
 let medals = {};
@@ -1556,8 +1566,7 @@ function renderCabinet() {
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 function newGame() {
-  roster = [];
-  for (let i = 0; i < settings.mode; i++) roster.push({ name: settings.names[i] || DEFAULT_NAMES[i], isBot: false, ctrl: CONTROLS[i], type: settings.types[i] });
+  roster = [{ name: settings.name, isBot: false, type: settings.type }];
   for (let i = 0; i < settings.bots; i++) roster.push({ name: 'Bot ' + (i + 1), isBot: true, type: null });
   roster.forEach((p, i) => p.color = COLORS[i]);
   scores = roster.map(() => 0);
@@ -1592,12 +1601,12 @@ function newRound() {
   // boty losują rodzaj czołgu w każdej rundzie
   roster.forEach(p => { if (p.isBot) p.curType = TYPE_KEYS[Math.random() * 3 | 0]; else p.curType = p.type; });
   tanks = roster.map((p, i) => ({
-    id: i, name: p.name, isBot: p.isBot, ctrl: p.ctrl, color: p.color,
+    id: i, name: p.name, isBot: p.isBot, color: p.color,
     typeKey: p.curType, type: TYPES[p.curType], r: TYPES[p.curType].r,
     hp: TYPES[p.curType].hp, flash: 0, trackD: 0, vx: 0, vy: 0, sand: 0, vis: 1, fireT: 0, burnT: 0,
     x: cells[i].c * CELL + CELL / 2, y: cells[i].r * CELL + CELL / 2,
     a: (Math.random() * 4 | 0) * Math.PI / 2,
-    alive: true, cool: 0.5, fireHeld: true, shots: 0,
+    alive: true, cool: 0.5, shots: 0,
     ai: { think: 0.4 + Math.random() * 0.3, aim: null, aimT: 0, wantFire: false, stuckT: 0, lastX: 0, lastY: 0, reverse: 0, revTurn: 1, goal: -1, field: null },
   }));
   for (const t of tanks) pushOut(t);
@@ -1820,19 +1829,6 @@ function touchUpdate(t, dt) {
   if (f.active && (!aiming || aimed)) fire(t); // przytrzymanie = ogień seriami (tempo zależy od czołgu)
 }
 
-function humanUpdate(t, dt) {
-  if (settings.control === 'touch') return touchUpdate(t, dt);
-  const k = t.ctrl;
-  let turn = 0, move = 0;
-  if (keys[k.left]) turn -= 1;
-  if (keys[k.right]) turn += 1;
-  if (keys[k.up]) move += 1;
-  if (keys[k.down]) move -= 1;
-  driveTank(t, turn, move, dt);
-  if (keys[k.fire]) { if (!t.fireHeld) fire(t); t.fireHeld = true; }
-  else t.fireHeld = false;
-}
-
 function botUpdate(t, dt) {
   const P = DIFF[demo ? 'normal' : settings.diff], ai = t.ai;
   // cel: najbliższy widoczny przeciwnik; jeśli nikogo nie widać (noc, krzaki) – jedzie w stronę najbliższego, ale nie strzela
@@ -1933,10 +1929,11 @@ function explode(x, y, color, n) {
   }
 }
 
-const FIRE_ZONE = 16; // jak blisko wraku zaczyna parzyć (px od karoserii)
-function damageTank(t, dmg, hx, hy) {
+const FIRE_ZONE = 24; // jak blisko wraku zaczyna parzyć (px od karoserii)
+const FIRE_TICK = 0.6; // co ile sekund żar zabiera 1 punkt pancerza
+function damageTank(t, dmg, hx, hy, by = null) { // by: czyj pocisk trafił (null = żar, wybuch)
   t.hp -= dmg; t.flash = 0.15;
-  if (t.hp <= 0) { t.hp = 0; t.alive = false; explode(t.x, t.y, t.color, 45); scorch(t.x, t.y, t.r * 2.6, 0.75); updateHud(); sfx.explode(t.x); }
+  if (t.hp <= 0) { t.hp = 0; t.alive = false; t.killer = by; explode(t.x, t.y, t.color, 45); scorch(t.x, t.y, t.r * 2.6, 0.75); updateHud(); sfx.explode(t.x); }
   else { explode(hx, hy, '#ffb020', 10); scorch(hx, hy, 7, 0.4); sfx.hit(t.x); }
 }
 // wybuch beczki (Miasto) lub skrzyni z amunicją (Baza): rani czołgi w pobliżu i odpala sąsiednie
@@ -1975,12 +1972,12 @@ function update(dt) {
       continue;
     }
     t.cool -= dt; t.flash -= dt;
-    if (t.isBot) botUpdate(t, dt); else humanUpdate(t, dt);
-    if (rule === 'fire') { // żar płonącego wraku: 1 punkt pancerza za każdą sekundę w pobliżu
+    if (t.isBot) botUpdate(t, dt); else touchUpdate(t, dt);
+    if (rule === 'fire') { // żar płonącego wraku: 1 punkt pancerza od razu po wjechaniu, potem co FIRE_TICK s
       if (cars.some(c => circleRect(t.x, t.y, t.r + FIRE_ZONE, c))) {
         t.burnT += dt;
-        if (t.burnT >= 1) { t.burnT -= 1; damageTank(t, 1, t.x, t.y); if (!t.alive) continue; }
-      } else t.burnT = 0;
+        if (t.burnT >= FIRE_TICK) { t.burnT -= FIRE_TICK; damageTank(t, 1, t.x, t.y); if (!t.alive) continue; }
+      } else t.burnT = FIRE_TICK; // poza żarem licznik „naładowany” – wjazd od razu parzy
     }
     if (rule === 'ammo') for (const o of treeGrid[gridIdx(t.x, t.y)]) // najechanie na skrzynię z amunicją
       if (o.explosive && dist(t, o) < t.r + o.r + 1.5) { detonate(o); break; }
@@ -2008,7 +2005,7 @@ function update(dt) {
     for (const t of tanks) {
       if (t.alive && bulletHits(b, t)) {
         b.dead = true;
-        damageTank(t, b.dmg, b.x, b.y);
+        damageTank(t, b.dmg, b.x, b.y, b.owner);
         break;
       }
     }
@@ -2024,19 +2021,21 @@ function update(dt) {
 
   // koniec rundy
   if (!roundOver) {
-    const alive = tanks.filter(t => t.alive);
-    const humansAlive = alive.filter(t => !t.isBot).length;
-    const humansTotal = tanks.filter(t => !t.isBot).length;
+    const alive = tanks.filter(t => t.alive), me = tanks.find(t => !t.isBot);
     if (alive.length <= 1) {
       roundOver = true; endTimer = 2.5;
       if (alive.length === 1) { scores[alive[0].id]++; banner = alive[0].name + ' wygrywa rundę!'; }
       else banner = 'Remis!';
       bannerT = 2.5; bannerSub = ''; updateHud();
       if (alive.length === 1 && !alive[0].isBot) sfx.win(); else sfx.lose();
-    } else if (humansTotal > 0 && humansAlive === 0) {
+    } else if (me && !me.alive) {
+      // gracz zniszczony, a botów zostało kilka: punkt dostaje tylko ten, który go pokonał (gdy zginął od własnego
+      // rykoszetu, żaru lub wybuchu – najmniej uszkodzony bot). Punkt dla każdego żywego bota dawał ciągłe remisy i dogrywki.
+      const k = me.killer;
+      const w = k && k.isBot && k.alive ? k : alive.reduce((a, b) => b.hp / b.type.hp > a.hp / a.type.hp ? b : a);
       roundOver = true; endTimer = 2.5;
-      alive.forEach(t => scores[t.id]++);
-      banner = 'Boty wygrywają rundę!'; bannerT = 2.5; bannerSub = ''; updateHud();
+      scores[w.id]++;
+      banner = w.name + ' wygrywa rundę!'; bannerT = 2.5; bannerSub = ''; updateHud();
       sfx.lose();
     }
   } else {
@@ -2130,7 +2129,7 @@ function drawTankShadow(c, x, y, a, r) {
 function drawTank(t) {
   drawTankShadow(ctx, t.x, t.y, t.a, t.r);
   const state = !t.alive ? 'dead' : t.flash > 0 ? 'flash' : 'ok';
-  const sp = tankSprite(t.typeKey, t.color, state, cam.z > 1 ? detailScale() : renderScale);
+  const sp = tankSprite(t.typeKey, t.color, state, Math.min(4, Math.round(renderScale * cam.z * 4) / 4));
   ctx.save();
   ctx.translate(t.x, t.y); ctx.rotate(t.a);
   ctx.drawImage(sp.cv, sp.x0, sp.y0, sp.w, sp.h);
@@ -2198,7 +2197,7 @@ function draw() {
   const kz = renderScale * cam.z;
   ctx.setTransform(kz, 0, 0, kz, -cam.x * kz, -cam.y * kz); // świat widziany przez kamerę
   // tylko widoczny fragment warstw (przy zoomie to 1/4 mapy – mniej pracy dla telefonu)
-  const vw = W / cam.z, vh = H / cam.z, ls = ground.width / W;
+  const vw = Math.min(W, UIW / cam.z), vh = Math.min(H, UIH / cam.z), ls = ground.width / W;
   ctx.drawImage(ground, cam.x * ls, cam.y * ls, vw * ls, vh * ls, cam.x, cam.y, vw, vh);
   ctx.drawImage(scenery, cam.x * ls, cam.y * ls, vw * ls, vh * ls, cam.x, cam.y, vw, vh);
   for (const c of cars) { // pulsująca strefa żaru
@@ -2250,7 +2249,7 @@ function draw() {
   ctx.setTransform(renderScale, 0, 0, renderScale, 0, 0); // napisy i wskaźniki – na ekranie, bez zoomu
   if (cam.z > 1) drawMinimap();
   if (wind) { // strzałka wiatru
-    const cx = W / 2, cy = 26;
+    const cx = UIW / 2, cy = cam.z > 1 ? UIH - 30 : 26; // w grze na dole (u góry są wyniki)
     ctx.fillStyle = 'rgba(16,22,13,.7)'; roundRect(ctx, cx - 62, cy - 16, 124, 32, 8); ctx.fill();
     ctx.font = '600 12px Rubik, Arial'; ctx.fillStyle = '#e8dcae'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
     ctx.fillText('WIATR', cx - 52, cy + 1);
@@ -2265,11 +2264,11 @@ function draw() {
     ctx.font = '400 34px "Black Ops One", Rubik, Arial';
     const tw = Math.max(380, ctx.measureText(text).width + 60);
     ctx.fillStyle = 'rgba(16,22,13,.82)';
-    roundRect(ctx, W / 2 - tw / 2, H / 2 - h / 2, tw, h, 10); ctx.fill();
+    roundRect(ctx, UIW / 2 - tw / 2, UIH / 2 - h / 2, tw, h, 10); ctx.fill();
     ctx.strokeStyle = 'rgba(200,183,122,.6)'; ctx.lineWidth = 2; ctx.stroke();
     ctx.fillStyle = '#e8dcae'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(text, W / 2, H / 2 + (bannerSub ? -12 : 2));
-    if (bannerSub) { ctx.font = '700 20px Rubik, Arial'; ctx.fillStyle = '#f0a53c'; ctx.fillText(bannerSub, W / 2, H / 2 + 26); }
+    ctx.fillText(text, UIW / 2, UIH / 2 + (bannerSub ? -12 : 2));
+    if (bannerSub) { ctx.font = '700 20px Rubik, Arial'; ctx.fillStyle = '#f0a53c'; ctx.fillText(bannerSub, UIW / 2, UIH / 2 + 26); }
     ctx.textBaseline = 'alphabetic';
   }
 }
@@ -2349,17 +2348,16 @@ function buildTankCards() {
   $('tankcards').innerHTML = TYPE_KEYS.map(k => `
     <button class="tcard" data-type="${k}">
       <span class="ok">WYBRANY</span>
-      <img alt="">
+      <img src="${tankIcon(k, COLORS[0])}" alt="">
       <span class="tclass">${TYPE_INFO[k].cls}</span>
       <span class="tname">${TYPES[k].name}</span>
       <span class="tdesc">${TYPE_INFO[k].desc}</span>
       ${STAT_NAMES.map((n, i) => `<span class="stat"><span>${n}</span><span class="bar">${[1, 2, 3, 4, 5].map(v => `<i class="${v <= TYPE_INFO[k].stats[i] ? 'f' : ''}"></i>`).join('')}</span></span>`).join('')}
     </button>`).join('');
-  $('tankcards').querySelectorAll('.tcard').forEach(b => b.onclick = () => { settings.types[editP] = b.dataset.type; saveSettings(); renderSetup(); });
+  $('tankcards').querySelectorAll('.tcard').forEach(b => b.onclick = () => { settings.type = b.dataset.type; saveSettings(); renderSetup(); });
 }
 
 function renderSplash() {
-  document.body.classList.toggle('ctl-touch', settings.control === 'touch');
   $('winTxt').textContent = settings.winRounds === 3 ? '3 rundy' : settings.winRounds + ' rund';
   $('stepMedal').innerHTML = medalSVG('gold');
   $('splashTanks').innerHTML = TYPE_KEYS.map(k => `<div class="mini"><img src="${tankIcon(k, COLORS[0])}" alt=""><b>${TYPES[k].name}</b><small>${TYPE_INFO[k].cls}</small></div>`).join('');
@@ -2368,48 +2366,26 @@ function renderSplash() {
 
 // przyciski ustawień bitwy: atrybut data-* → odczyt i zapis wartości
 const SETUP_OPTS = {
-  mode: { get: () => settings.mode,      set: v => { settings.mode = +v; } },
   bots: { get: () => settings.bots,      set: v => { settings.bots = +v; } },
   diff: { get: () => settings.diff,      set: v => { settings.diff = v; } },
   map:  { get: () => settings.map,       set: v => { settings.map = v; } },
   win:  { get: () => settings.winRounds, set: v => { settings.winRounds = +v; } },
-  ctl:  { get: () => settings.control,   set: v => { settings.control = v; } },
   lay:  { get: () => settings.layout,    set: v => { settings.layout = v; } },
   snd:  { get: () => soundOn ? 1 : 0,    set: v => { initAudio(); setSound(v === '1'); } },
 };
 
 function renderSetup() {
-  if (settings.control === 'touch') settings.mode = 1;
-  if (settings.mode === 1) editP = 0;
-  if (settings.mode === 1 && settings.bots === 0) settings.bots = 1;
-  if (settings.mode + settings.bots > 5) settings.bots = 5 - settings.mode;
-  document.body.classList.toggle('ctl-touch', settings.control === 'touch');
   for (const [attr, o] of Object.entries(SETUP_OPTS))
     document.querySelectorAll(`#setup [data-${attr}]`).forEach(b => b.classList.toggle('on', b.dataset[attr] === String(o.get())));
-  const m2 = document.querySelector('#setup [data-mode="2"]'); if (m2) m2.disabled = settings.control === 'touch';
-  document.querySelectorAll('#setup [data-bots]').forEach(b => { const n = +b.dataset.bots; b.disabled = (settings.mode === 1 && n === 0) || settings.mode + n > 5; });
   $('rulenote').textContent = settings.map === 'random' ? 'Każda mapa ma swoją zasadę specjalną, np. poślizg na Zimie.'
     : RULES[THEMES[settings.map].rule].name + ' ' + RULES[THEMES[settings.map].rule].desc;
-  for (const id of ['layoutrow', 'touchnote']) { const el = $(id); if (el) el.style.display = settings.control === 'touch' ? '' : 'none'; }
-  // zakładki graczy (tylko przy 2 graczach)
-  $('ptabs').style.display = settings.mode === 2 ? '' : 'none';
-  $('ptabs').innerHTML = [0, 1].map(i => `<button class="ptab${i === editP ? ' on' : ''}" data-p="${i}" style="--pc:${COLORS[i]}">
-      <img src="${tankIcon(settings.types[i], COLORS[i])}" alt=""><span><b>${esc(settings.names[i])}</b><small>${TYPES[settings.types[i]].name}</small></span></button>`).join('');
-  $('ptabs').querySelectorAll('.ptab').forEach(b => b.onclick = () => { editP = +b.dataset.p; renderSetup(); });
-  $('tanktitle').textContent = settings.mode === 2 ? 'Czołgi graczy' : 'Twój czołg';
-  $('namelab').textContent = settings.mode === 2 ? `Imię gracza ${editP + 1}` : 'Twoje imię';
   const inp = $('nameInput');
-  if (document.activeElement !== inp) inp.value = settings.names[editP] === DEFAULT_NAMES[editP] ? '' : settings.names[editP];
-  inp.placeholder = DEFAULT_NAMES[editP];
-  document.querySelectorAll('#tankcards .tcard').forEach(b => {
-    b.classList.toggle('on', b.dataset.type === settings.types[editP]);
-    b.querySelector('img').src = tankIcon(b.dataset.type, COLORS[editP]);
-  });
+  if (document.activeElement !== inp) inp.value = settings.name === DEFAULT_NAME ? '' : settings.name;
+  inp.placeholder = DEFAULT_NAME;
+  document.querySelectorAll('#tankcards .tcard').forEach(b => b.classList.toggle('on', b.dataset.type === settings.type));
   // podsumowanie na dole
-  const pl = i => `${esc(settings.names[i])} (${TYPES[settings.types[i]].name})`;
-  const who = settings.mode === 2 ? `${pl(0)} i ${pl(1)}` : pl(0);
-  const bots = settings.bots ? ` vs ${settings.bots} ${settings.bots === 1 ? 'bot' : 'boty'}` : '';
-  $('summary').innerHTML = `<b>${who}</b>${bots}<br><span>${settings.bots ? 'Boty: ' + { easy: 'łatwe', normal: 'normalne', hard: 'trudne' }[settings.diff] + ' · ' : ''}${settings.map === 'random' ? 'losowa mapa' : THEMES[settings.map].name.toLowerCase()} · mecz do ${settings.winRounds} wygranych</span>`;
+  const bots = `${settings.bots} ${settings.bots === 1 ? 'bot' : 'boty'}`;
+  $('summary').innerHTML = `<b>${esc(settings.name)} (${TYPES[settings.type].name})</b> vs ${bots}<br><span>Boty: ${{ easy: 'łatwe', normal: 'normalne', hard: 'trudne' }[settings.diff]} · ${settings.map === 'random' ? 'losowa mapa' : THEMES[settings.map].name.toLowerCase()} · mecz do ${settings.winRounds} wygranych</span>`;
 }
 const refreshMenu = () => { if (screen === 'setup') renderSetup(); };
 
@@ -2426,15 +2402,14 @@ function goSplash() { stopEngines(); startDemo(); setScreen('splash'); renderSpl
 function goSetup() { if (!demo) { stopEngines(); startDemo(); } setScreen('setup'); renderSetup(); }
 function startGame() {
   initAudio();
-  if (settings.control === 'touch') { // pełny ekran, jeśli urządzenie pozwala (iPad tak, iPhone nie)
-    const d = document.documentElement, fs = d.requestFullscreen || d.webkitRequestFullscreen;
-    if (fs && !document.fullscreenElement && !document.webkitFullscreenElement) { try { const r = fs.call(d); if (r && r.catch) r.catch(() => {}); } catch (_) {} }
-  }
+  // pełny ekran, jeśli urządzenie pozwala (iPad tak, iPhone nie)
+  const d = document.documentElement, fs = d.requestFullscreen || d.webkitRequestFullscreen;
+  if (fs && !document.fullscreenElement && !document.webkitFullscreenElement) { try { const r = fs.call(d); if (r && r.catch) r.catch(() => {}); } catch (_) {} }
   if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
   newGame();
   setScreen('game');
 }
-function openPause() { if (screen !== 'game') return; paused = true; needsDraw = true; clearKeys(); setScreen('pause'); }
+function openPause() { if (screen !== 'game') return; paused = true; needsDraw = true; setScreen('pause'); }
 function resumeGame() { if (screen !== 'pause') return; paused = false; setScreen('game'); }
 
 // przyciski
@@ -2450,7 +2425,7 @@ $('v-setup').onclick = goSetup;
 $('tomenu').onclick = goSplash;
 for (const [attr, o] of Object.entries(SETUP_OPTS))
   document.querySelectorAll(`#setup [data-${attr}]`).forEach(b => b.onclick = () => { o.set(b.dataset[attr]); renderSetup(); saveSettings(); });
-$('nameInput').addEventListener('input', e => { settings.names[editP] = e.target.value.trim().slice(0, 12) || DEFAULT_NAMES[editP]; saveSettings(); renderSetup(); });
+$('nameInput').addEventListener('input', e => { settings.name = e.target.value.trim().slice(0, 12) || DEFAULT_NAME; saveSettings(); renderSetup(); });
 document.addEventListener('click', e => { if (e.target.closest && e.target.closest('.screen button')) { initAudio(); sfx.click(); } });
 // ===================== APLIKACJA (PWA) =====================
 const IS_STANDALONE = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
@@ -2475,14 +2450,17 @@ if (ON_WEB && !IS_STANDALONE) { // Safari nie ma przycisku instalacji – pokazu
   const iOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if (iOS) { $('installHint').innerHTML = 'Zainstaluj grę: stuknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Dodaj do ekranu początkowego</b>.'; $('installHint').hidden = false; }
 }
-if (IS_STANDALONE) document.body.classList.add('standalone');
 if (!IS_TOUCH) { // komputer bez ekranu dotykowego → podpowiedź o wersji na klawiaturę
   $('otherEdition').innerHTML = 'To wersja na telefon i tablet. Na komputerze zagraj w <a href="https://mjwawa.github.io/maze_tanks_web/">Maze Tanks</a> na klawiaturze (także we dwóch).';
   $('otherEdition').hidden = false;
 }
 
-// gra sama pauzuje, gdy przełączysz kartę albo aplikację
-document.addEventListener('visibilitychange', () => { if (document.hidden) openPause(); });
+// gra sama pauzuje, gdy przełączysz kartę albo aplikację. Dźwięk wstrzymujemy tutaj, bo w tle pętla gry
+// nie działa i nie wyciszyłaby silnika (na Androidzie buczałby aż do powrotu do gry).
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { openPause(); if (actx && actx.state === 'running') actx.suspend().catch(() => {}); }
+  else if (actx && actx.state === 'suspended') actx.resume().catch(() => {});
+});
 
 // ===================== PĘTLA GRY =====================
 // Klatka jest dzielona na równe podkroki ≤ 1/120 s: fizyka i boty działają tak samo przy 60, 120 i 144 Hz,
@@ -2492,13 +2470,9 @@ let last = performance.now();
 function loop(now) {
   const frame = Math.min(0.1, (now - last) / 1000); last = now;
   const inGame = running && !demo && !matchOver;
-  const tm = inGame && settings.control === 'touch';
   if (document.body.classList.contains('demo') !== demo) document.body.classList.toggle('demo', demo);
-  if (document.body.classList.contains('tm') !== tm) { document.body.classList.toggle('tm', tm); if (!tm) resetSticks(); }
-  if (tm) drawJoys();
-  const playing = inGame;
-  if (document.body.classList.contains('playing') !== playing) document.body.classList.toggle('playing', playing);
-  if (playing && (window.scrollX || window.scrollY)) window.scrollTo(0, 0);
+  if (document.body.classList.contains('tm') !== inGame) { document.body.classList.toggle('tm', inGame); if (!inGame) resetSticks(); }
+  if (inGame) { drawJoys(); if (window.scrollX || window.scrollY) window.scrollTo(0, 0); }
   if (running && !paused && !matchOver && frame > 0) {
     const n = Math.max(1, Math.ceil(frame / MAX_STEP - 0.05)), dt = frame / n;
     for (let i = 0; i < n && !paused && !matchOver; i++) update(dt);
@@ -2506,6 +2480,7 @@ function loop(now) {
   if (running && !matchOver) updateEngines(paused);
   // pauza / koniec meczu: obraz stoi, więc rysujemy go tylko raz (i po zmianie rozmiaru)
   if (!(paused || matchOver)) updateCamera(frame);
+  else if (!running || demo) updateCamera(0);
   if (!(paused || matchOver) || needsDraw) { draw(); needsDraw = false; }
   requestAnimationFrame(loop);
 }
