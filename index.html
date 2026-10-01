@@ -732,13 +732,14 @@ function fitCanvas() {
 const ground = document.createElement('canvas'), gctx = ground.getContext('2d');
 const scenery = document.createElement('canvas'), sctx = scenery.getContext('2d');
 // ===================== KAMERA (zoom w trakcie gry) =====================
-// W grze widać ok. 1/4 mapy w proporcjach ekranu, kamera spokojnie jedzie za czołgiem gracza. W menu – cała mapa.
+// W grze widać ok. 45% mapy w proporcjach ekranu, kamera spokojnie jedzie za czołgiem gracza. W menu – cała mapa.
+const VIEW_AREA = 0.45;
 const cam = { x: 0, y: 0, z: 1, cx: W / 2, cy: H / 2, fx: W / 2, fy: H / 2, snap: true };
 // ziemię i czołgi rysujemy gęściej, żeby po powiększeniu nie były rozmyte (maks. 3×, żeby oszczędzać pamięć telefonu)
 const detailScale = () => Math.min(3, Math.min(window.devicePixelRatio || 1, 2) * 2.4);
-function viewZoom() { // ile razy powiększyć, żeby na ekranie była ok. 1/4 powierzchni mapy
+function viewZoom() { // ile razy powiększyć, żeby na ekranie było ok. VIEW_AREA powierzchni mapy
   const a = UIW / UIH;
-  let vh = Math.sqrt(W * H / 4 / a), vw = vh * a;
+  let vh = Math.sqrt(W * H * VIEW_AREA / a), vw = vh * a;
   if (vw > W) { vw = W; vh = vw / a; }
   if (vh > H) vh = H;
   return UIH / vh;
@@ -757,10 +758,16 @@ function updateCamera(dt) {
     if (me.y > cam.cy + dzy) cam.cy = me.y - dzy; else if (me.y < cam.cy - dzy) cam.cy = me.y + dzy;
   }
   cam.cx = clamp(cam.cx, vw / 2, W - vw / 2); cam.cy = clamp(cam.cy, vh / 2, H - vh / 2);
+  // Minimapa zasłania lewy górny róg ekranu. Gdy czołg gracza wjechałby pod nią (np. w rogu mapy),
+  // kamera wychodzi poza brzeg mapy – w bok albo w górę, o ile mniej trzeba – i czołg zostaje widoczny.
+  const mx = (MM.x + MM.w + 50) / cam.z, my = (MM.y + MM.h + 60) / cam.z; // obszar minimapy z zapasem na czołg i podpis
+  const sx = me.x - (cam.cx - vw / 2), sy = me.y - (cam.cy - vh / 2);
+  let tx = cam.cx, ty = cam.cy;
+  if (sx < mx && sy < my) { if (mx - sx < my - sy) tx -= mx - sx; else ty -= my - sy; }
   // łagodne dojeżdżanie kamery do celu (przy prędkości Lisa zostaje w tyle o ok. 20 px)
   const k = Math.min(1, dt * 7);
-  cam.fx += (cam.cx - cam.fx) * k; cam.fy += (cam.cy - cam.fy) * k;
-  cam.x = clamp(cam.fx - vw / 2, 0, Math.max(0, W - vw)); cam.y = clamp(cam.fy - vh / 2, 0, Math.max(0, H - vh));
+  cam.fx += (tx - cam.fx) * k; cam.fy += (ty - cam.fy) * k;
+  cam.x = clamp(cam.fx - vw / 2, -mx, Math.max(0, W - vw)); cam.y = clamp(cam.fy - vh / 2, -my, Math.max(0, H - vh));
 }
 // ===================== MINIMAPA =====================
 // Lewy górny róg ekranu: ściany i przeszkody (rysowane raz na rundę), ramka widoku kamery i czołgi.
@@ -2637,8 +2644,12 @@ function draw() {
   ctx.setTransform(kz, 0, 0, kz, -cam.x * kz, -cam.y * kz); // świat widziany przez kamerę
   // tylko widoczny fragment warstw (przy zoomie to 1/4 mapy – mniej pracy dla telefonu)
   const vw = Math.min(W, UIW / cam.z), vh = Math.min(H, UIH / cam.z), ls = ground.width / W;
-  ctx.drawImage(ground, cam.x * ls, cam.y * ls, vw * ls, vh * ls, cam.x, cam.y, vw, vh);
-  ctx.drawImage(scenery, cam.x * ls, cam.y * ls, vw * ls, vh * ls, cam.x, cam.y, vw, vh);
+  // kamera za brzegiem mapy (czołg w rogu pod minimapą): tło poza mapą i tylko ta część warstw, która istnieje
+  // (Safari nie rysuje drawImage, gdy wycinek wychodzi poza obrazek)
+  if (cam.x < 0 || cam.y < 0) { ctx.fillStyle = '#161b14'; ctx.fillRect(cam.x, cam.y, vw, vh); }
+  const sx = Math.max(0, cam.x), sy = Math.max(0, cam.y), sw = vw - (sx - cam.x), sh = vh - (sy - cam.y);
+  ctx.drawImage(ground, sx * ls, sy * ls, sw * ls, sh * ls, sx, sy, sw, sh);
+  ctx.drawImage(scenery, sx * ls, sy * ls, sw * ls, sh * ls, sx, sy, sw, sh);
   for (const c of cars) { // pulsująca strefa żaru
     const cx = c.x + c.w / 2, cy = c.y + c.h / 2, R = Math.max(c.w, c.h) / 2 + FIRE_ZONE + 10;
     const pulse = 0.18 + 0.06 * Math.sin(performance.now() / 180 + c.seed);
