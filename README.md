@@ -16,6 +16,10 @@ Na komputer z klawiaturą (także dla 2 graczy) jest osobna wersja: [Maze Tanks]
 - Minimapa w lewym górnym rogu pokazuje całą planszę, Twój czołg (z kierunkiem jazdy), widocznych przeciwników i fragment widoczny na ekranie.
 - Grasz sam przeciw 1–3 botom. Najlepiej trzymać urządzenie poziomo.
 
+## Kampania
+
+Kampania dla jednego gracza: 8 rozdziałów, po jednym na każdą mapę, w każdym 3 misje. Każdą misję w rozdziale gra się innym czołgiem (Lisem, Wilkiem i Niedźwiedziem), a ostatnia to walka z szefem. Misje mają stały labirynt i własny cel, np. zniszczenie wszystkich, przetrwanie albo utrzymanie punktu. Za misję można zdobyć 1–3 gwiazdki. Kolejna misja otwiera się po wykonaniu poprzedniej, a po 3 porażkach z rzędu można spróbować wersji ułatwionej. W finale i w misjach elitarnych czołg wybierasz sam. Za zdobycie 60 gwiazdek w rozdziałach 1–8 otwierają się 3 misje elitarne, a za ukończenie kampanii dostajesz medal Weteran kampanii i Tygrysa: ultra czołg z podwójną lufą, szybki jak Lis i pancerny jak Niedźwiedź (pancerz 8, siła rażenia 3, 6 pocisków naraz). Tygrysa można potem wybrać w garażu i w ukończonych misjach, boty nigdy go nie dostają.
+
 ## Mapy i poziomy
 
 - Trzy poziomy botów: łatwy, normalny, trudny
