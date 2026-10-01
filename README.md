@@ -87,6 +87,12 @@ Wzory zachowują kolor gracza, więc zawsze widać, kto jest kim. Boty jeżdżą
 | Odbicia pocisku | 3 | 3 | 2 |
 | Wygląd | smukły, wieża z przodu, krótka lufa | wieża z tyłu, długa lufa | szeroki, duża wieża, krótka gruba lufa |
 
+## Język / Language
+
+Gra jest po polsku i po angielsku. Za pierwszym razem język dobiera się do języka telefonu (polski telefon – po polsku, inny – po angielsku). Zmienisz go przełącznikiem **PL / EN** w menu głównym albo w **Ustawieniach**.
+
+The game is available in Polish and English. Switch with **PL / EN** in the main menu or in **Settings**.
+
 ## Zainstaluj jako aplikację
 
 - **iPad / iPhone (Safari):** Udostępnij → *Dodaj do ekranu początkowego*

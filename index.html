@@ -87,6 +87,8 @@
     font-size: 18px; padding: 10px 14px; background: rgba(35,42,28,.94); clip-path: var(--cut);
   }
   .mbtn small { font-size: 18px; color: var(--khaki); }
+  .langseg { max-width: 150px; }
+  .langseg button { padding: 6px 10px; font-size: 15px; }
   .ghost { text-transform: uppercase; font-size: 15px; padding: 7px 12px; clip-path: var(--cut); background: rgba(35,42,28,.94); }
   .topbar { display: flex; align-items: center; gap: 14px; }
   .topbar h2 { margin: 0; font-family: var(--f-head); font-weight: 900; text-transform: uppercase; font-size: clamp(34px, 5vw, 46px); line-height: 1; color: var(--khaki); }
@@ -409,23 +411,24 @@
 <div id="touch">
   <div class="joy idle" id="joyL"><div class="lbl"></div><div class="knob"></div></div>
   <div class="joy idle" id="joyR"><div class="lbl"></div><div class="knob"></div></div>
-  <button class="tbtn" id="tpause" aria-label="Pauza">II</button>
+  <button class="tbtn" id="tpause" aria-label="Pauza" data-en-aria="Pause">II</button>
 </div>
 <div id="safeprobe" style="position:fixed;left:0;top:0;width:env(safe-area-inset-left);height:env(safe-area-inset-top);visibility:hidden;pointer-events:none"></div>
-<div id="rotate"><div class="ph"></div>Obróć urządzenie poziomo</div>
+<div id="rotate"><div class="ph"></div><span data-en="Rotate your device to landscape">Obróć urządzenie poziomo</span></div>
 
 <!-- ===================== MENU GŁÓWNE ===================== -->
 <div class="screen" id="splash">
   <div class="inner splash">
     <div class="logo"><h1>Maze <span>Tanks</span></h1><div class="tag">Mobile</div></div>
     <nav class="mlist">
-      <button class="cta" id="campBtn">Kampania</button>
-      <button class="mbtn" id="play">Szybka bitwa</button>
-      <button class="mbtn" id="achBtn">Osiągnięcia <small id="achPct">0%</small></button>
-      <button class="mbtn" id="medBtn">Gablota medali <small id="medCnt">0</small></button>
-      <button class="mbtn" id="howBtn">Jak grać</button>
-      <button class="mbtn" id="installBtn" hidden>Zainstaluj aplikację</button>
+      <button class="cta" id="campBtn" data-en="Campaign">Kampania</button>
+      <button class="mbtn" id="play" data-en="Quick battle">Szybka bitwa</button>
+      <button class="mbtn" id="achBtn"><span data-en="Achievements">Osiągnięcia</span> <small id="achPct">0%</small></button>
+      <button class="mbtn" id="medBtn"><span data-en="Medal cabinet">Gablota medali</span> <small id="medCnt">0</small></button>
+      <button class="mbtn" id="howBtn" data-en="How to play">Jak grać</button>
+      <button class="mbtn" id="installBtn" hidden data-en="Install app">Zainstaluj aplikację</button>
     </nav>
+    <div class="seg langseg"><button data-lang="pl">PL</button><button data-lang="en">EN</button></div>
     <div class="installhint" id="installHint" hidden></div>
     <div class="installhint" id="otherEdition" hidden></div>
   </div>
@@ -434,13 +437,13 @@
 <!-- ===================== JAK GRAĆ ===================== -->
 <div class="screen" id="how">
   <div class="inner how">
-    <div class="topbar"><button class="ghost" id="howBack">‹ Menu</button><h2>Jak grać</h2></div>
+    <div class="topbar"><button class="ghost" id="howBack">‹ Menu</button><h2 data-en="How to play">Jak grać</h2></div>
     <ol class="tips">
-      <li><b>Jedź</b><p>Lewym kciukiem pokaż kierunek, a czołg sam się obróci i pojedzie. Kierunek za czołgiem to cofanie.</p></li>
-      <li><b>Strzelaj</b><p>Przytrzymaj prawy joystick, żeby strzelać prosto. Przeciągnij, żeby wycelować. Kropki przed czołgiem pokazują, dokąd poleci pocisk.</p></li>
-      <li><b>Odbijaj</b><p>Pociski odbijają się od ścian i drzew. Uważaj, Twój rykoszet też boli.</p></li>
-      <li><b>Wygrywaj</b><p>Runda to jedna walka: wygrywa ją ostatni czołg na placu. Mecz to seria rund: kto pierwszy wygra <span id="howWin">5</span> rund, wygrywa mecz i dostaje złoty medal do gabloty.</p></li>
-      <li><b>Poznaj mapy</b><p>Każda mapa ma swoją zasadę: kryjówki w krzakach, wiatr, grząski piasek, lód, płonące wraki, skrzynie z amunicją, ciemność i nieważkość.</p></li>
+      <li><b data-en="Drive">Jedź</b><p data-en="Point a direction with your left thumb and the tank turns and drives there by itself. Pointing behind the tank reverses.">Lewym kciukiem pokaż kierunek, a czołg sam się obróci i pojedzie. Kierunek za czołgiem to cofanie.</p></li>
+      <li><b data-en="Shoot">Strzelaj</b><p data-en="Hold the right joystick to fire straight ahead. Drag it to aim. The dots in front of the tank show where the shell will fly.">Przytrzymaj prawy joystick, żeby strzelać prosto. Przeciągnij, żeby wycelować. Kropki przed czołgiem pokazują, dokąd poleci pocisk.</p></li>
+      <li><b data-en="Bounce">Odbijaj</b><p data-en="Shells bounce off walls and trees. Careful, your own ricochet hurts too.">Pociski odbijają się od ścian i drzew. Uważaj, Twój rykoszet też boli.</p></li>
+      <li><b data-en="Win">Wygrywaj</b><p id="howWinTip"></p></li>
+      <li><b data-en="Learn the maps">Poznaj mapy</b><p data-en="Every map has its own rule: hiding in bushes, wind, quicksand, ice, burning wrecks, ammo crates, darkness and low gravity.">Każda mapa ma swoją zasadę: kryjówki w krzakach, wiatr, grząski piasek, lód, płonące wraki, skrzynie z amunicją, ciemność i nieważkość.</p></li>
     </ol>
   </div>
 </div>
@@ -448,7 +451,7 @@
 <!-- ===================== GABLOTA MEDALI ===================== -->
 <div class="screen" id="medals">
   <div class="inner medals">
-    <div class="topbar"><button class="ghost" id="medBack">‹ Menu</button><h2>Gablota medali</h2></div>
+    <div class="topbar"><button class="ghost" id="medBack">‹ Menu</button><h2 data-en="Medal cabinet">Gablota medali</h2></div>
     <div class="medlist" id="medList"></div>
   </div>
 </div>
@@ -456,53 +459,55 @@
 <!-- ===================== GARAŻ (ustawienia bitwy) ===================== -->
 <div class="screen" id="setup">
   <div class="inner setup">
-    <div class="topbar"><button class="ghost" id="back">‹ Menu</button><h2>Garaż</h2><span class="sp"></span><button class="ghost" id="optBtn">Ustawienia</button></div>
+    <div class="topbar"><button class="ghost" id="back">‹ Menu</button><h2 data-en="Garage">Garaż</h2><span class="sp"></span><button class="ghost" id="optBtn" data-en="Settings">Ustawienia</button></div>
     <div class="setup-grid">
       <section class="panel">
-        <label class="field"><span class="lab">Twoje imię</span>
+        <label class="field"><span class="lab" data-en="Your name">Twoje imię</span>
           <input class="name" id="nameInput" maxlength="12" autocomplete="off" spellcheck="false"></label>
-        <div class="field"><span class="lab">Czołg</span><div class="tankcards" id="tankcards"></div></div>
-        <div class="field"><span class="lab">Malowanie</span><div class="paints" id="paints"></div><p class="note" id="paintnote"></p></div>
+        <div class="field"><span class="lab" data-en="Tank">Czołg</span><div class="tankcards" id="tankcards"></div></div>
+        <div class="field"><span class="lab" data-en="Paint job">Malowanie</span><div class="paints" id="paints"></div><p class="note" id="paintnote"></p></div>
       </section>
       <section class="panel">
-        <div class="field"><span class="lab">Przeciwnicy</span>
-          <div class="seg"><button data-bots="1">1 bot</button><button data-bots="2">2 boty</button><button data-bots="3">3 boty</button></div></div>
-        <div class="field"><span class="lab">Poziom botów</span>
-          <div class="seg"><button data-diff="easy"><i class="rk">›</i>Rekrut</button><button data-diff="normal"><i class="rk">››</i>Żołnierz</button><button data-diff="hard"><i class="rk">›››</i>Komandos</button></div></div>
-        <div class="field"><span class="lab">Mapa</span>
+        <div class="field"><span class="lab" data-en="Opponents">Przeciwnicy</span>
+          <div class="seg"><button data-bots="1">1 bot</button><button data-bots="2" data-en="2 bots">2 boty</button><button data-bots="3" data-en="3 bots">3 boty</button></div></div>
+        <div class="field"><span class="lab" data-en="Bot level">Poziom botów</span>
+          <div class="seg"><button data-diff="easy" data-en='<i class="rk">›</i>Recruit'><i class="rk">›</i>Rekrut</button><button data-diff="normal" data-en='<i class="rk">››</i>Soldier'><i class="rk">››</i>Żołnierz</button><button data-diff="hard" data-en='<i class="rk">›››</i>Commando'><i class="rk">›››</i>Komandos</button></div></div>
+        <div class="field"><span class="lab" data-en="Map">Mapa</span>
           <div class="mapgrid">
-            <button data-map="random"><span>Losowa</span></button>
-            <button data-map="las"><span>Las</span></button>
-            <button data-map="pole"><span>Pole</span></button>
-            <button data-map="pustynia"><span>Pustynia</span></button>
-            <button data-map="zima"><span>Zima</span></button>
-            <button data-map="miasto"><span>Miasto</span></button>
-            <button data-map="noc"><span>Noc</span></button>
-            <button data-map="baza"><span>Baza</span></button>
-            <button data-map="ksiezyc"><span>Księżyc</span></button>
+            <button data-map="random"><span data-en="Random">Losowa</span></button>
+            <button data-map="las"><span data-en="Forest">Las</span></button>
+            <button data-map="pole"><span data-en="Field">Pole</span></button>
+            <button data-map="pustynia"><span data-en="Desert">Pustynia</span></button>
+            <button data-map="zima"><span data-en="Winter">Zima</span></button>
+            <button data-map="miasto"><span data-en="City">Miasto</span></button>
+            <button data-map="noc"><span data-en="Night">Noc</span></button>
+            <button data-map="baza"><span data-en="Base">Baza</span></button>
+            <button data-map="ksiezyc"><span data-en="Moon">Księżyc</span></button>
           </div>
           <p class="note" id="rulenote"></p></div>
-        <div class="field"><span class="lab">Mecz do ilu wygranych rund</span>
+        <div class="field"><span class="lab" data-en="Match: rounds to win">Mecz do ilu wygranych rund</span>
           <div class="seg"><button data-win="3">3</button><button data-win="5">5</button><button data-win="7">7</button></div>
-          <p class="note">Runda to jedna walka do ostatniego czołgu. Mecz wygrywa ten, kto pierwszy wygra tyle rund.</p></div>
+          <p class="note" data-en="A round is one battle until the last tank standing. The match goes to whoever first wins this many rounds.">Runda to jedna walka do ostatniego czołgu. Mecz wygrywa ten, kto pierwszy wygra tyle rund.</p></div>
       </section>
     </div>
-    <div class="bottombar"><div class="summary" id="summary"></div><button class="cta" id="start">Do boju</button></div>
+    <div class="bottombar"><div class="summary" id="summary"></div><button class="cta" id="start" data-en="Fight!">Do boju</button></div>
   </div>
 </div>
 
 <!-- ===================== USTAWIENIA ===================== -->
 <div class="screen" id="options">
   <div class="inner opts">
-    <div class="topbar"><button class="ghost" id="optBack">‹ Garaż</button><h2>Ustawienia</h2></div>
+    <div class="topbar"><button class="ghost" id="optBack" data-en="‹ Garage">‹ Garaż</button><h2 data-en="Settings">Ustawienia</h2></div>
     <section class="panel">
-        <div class="field"><span class="lab">Joysticki</span>
-          <div class="seg"><button data-lay="left">Jazda lewym kciukiem</button><button data-lay="right">Jazda prawym kciukiem</button></div></div>
-        <div class="field"><span class="lab">Dźwięk</span>
-          <div class="seg"><button data-snd="1">Włączony</button><button data-snd="0">Wyłączony</button></div></div>
-        <div class="field"><span class="lab">Podgląd toru pocisku</span>
-          <div class="seg"><button data-aim="1">Włączony</button><button data-aim="0">Wyłączony</button></div>
-          <p class="note">Kropki pokazują, dokąd poleci pocisk, aż do pierwszego odbicia.</p></div>
+        <div class="field"><span class="lab" data-en="Joysticks">Joysticki</span>
+          <div class="seg"><button data-lay="left" data-en="Drive with left thumb">Jazda lewym kciukiem</button><button data-lay="right" data-en="Drive with right thumb">Jazda prawym kciukiem</button></div></div>
+        <div class="field"><span class="lab" data-en="Sound">Dźwięk</span>
+          <div class="seg"><button data-snd="1" data-en="On">Włączony</button><button data-snd="0" data-en="Off">Wyłączony</button></div></div>
+        <div class="field"><span class="lab" data-en="Shot preview">Podgląd toru pocisku</span>
+          <div class="seg"><button data-aim="1" data-en="On">Włączony</button><button data-aim="0" data-en="Off">Wyłączony</button></div>
+          <p class="note" data-en="Dots show where the shell will fly, up to the first bounce.">Kropki pokazują, dokąd poleci pocisk, aż do pierwszego odbicia.</p></div>
+        <div class="field"><span class="lab">Język / Language</span>
+          <div class="seg"><button data-lang="pl">Polski</button><button data-lang="en">English</button></div></div>
     </section>
   </div>
 </div>
@@ -510,18 +515,18 @@
 <!-- ===================== PAUZA ===================== -->
 <div class="screen" id="pause">
   <div class="inner pbox">
-    <h2>Pauza</h2>
-    <button class="cta" id="p-resume">Wznów</button>
-    <button class="mbtn" id="p-restart">Od nowa</button>
+    <h2 data-en="Paused">Pauza</h2>
+    <button class="cta" id="p-resume" data-en="Resume">Wznów</button>
+    <button class="mbtn" id="p-restart" data-en="Restart">Od nowa</button>
     <button class="mbtn" id="p-setup">Garaż</button>
-    <button class="mbtn" id="p-menu">Menu główne</button>
+    <button class="mbtn" id="p-menu" data-en="Main menu">Menu główne</button>
   </div>
 </div>
 
 <!-- ===================== OSIĄGNIĘCIA ===================== -->
 <div class="screen" id="achievements">
   <div class="inner achs">
-    <div class="topbar"><button class="ghost" id="achBack">‹ Menu</button><h2>Osiągnięcia</h2></div>
+    <div class="topbar"><button class="ghost" id="achBack">‹ Menu</button><h2 data-en="Achievements">Osiągnięcia</h2></div>
     <div class="achsum" id="achSum"></div>
     <div id="achList"></div>
   </div>
@@ -530,7 +535,7 @@
 <!-- ===================== KAMPANIA ===================== -->
 <div class="screen" id="campaign">
   <div class="inner camp">
-    <div class="topbar"><button class="ghost" id="campBack">‹ Menu</button><h2>Kampania</h2><span class="sp"></span><span class="campstars" id="campStars"></span></div>
+    <div class="topbar"><button class="ghost" id="campBack">‹ Menu</button><h2 data-en="Campaign">Kampania</h2><span class="sp"></span><span class="campstars" id="campStars"></span></div>
     <div class="unlock prize" id="campReward"></div>
     <div class="campgrid">
       <div class="chapters" id="chapters"></div>
@@ -558,14 +563,17 @@
     <div class="rank" id="vrank"></div>
     <div class="vach" id="vach"></div>
     <div class="vbtns">
-      <button class="cta" id="again">Rewanż</button>
-      <button class="mbtn" id="v-setup">Garaż</button>
-      <button class="mbtn" id="tomenu">Menu główne</button>
+      <button class="cta" id="again" data-en="Rematch">Rewanż</button>
+      <button class="mbtn" id="v-setup" data-en="Garage">Garaż</button>
+      <button class="mbtn" id="tomenu" data-en="Main menu">Menu główne</button>
     </div>
   </div>
 </div>
 
 <script>
+// ===================== JĘZYK (PL / EN) =====================
+let lang = 'pl';
+const L = (pl, en) => lang === 'en' ? en : pl; // tekst w bieżącym języku
 // ===================== USTAWIENIA =====================
 const CELL = 80, COLS = 12, ROWS = 8;
 const W = COLS * CELL, H = ROWS * CELL;
@@ -1716,11 +1724,12 @@ function updateEngines(silent) {
 
 // ===================== USTAWIENIA GRACZA =====================
 const DEFAULT_NAME = 'Gracz 1';
+const shownName = n => n === DEFAULT_NAME ? L('Gracz 1', 'Player 1') : n;
 // główny wskaźnik to palec (telefon, iPad); iPad w trybie „komputerowym” przedstawia się jak Mac
 const IS_TOUCH = (window.matchMedia && matchMedia('(pointer: coarse)').matches)
   || (navigator.maxTouchPoints > 1 && /Macintosh|iPad/.test(navigator.userAgent));
 const IS_APPLE_TOUCH = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-let settings = { aimLine: true, layout: 'left', winRounds: 5, bots: 1, diff: 'normal', map: 'random', type: 'wilk', paint: 'std', name: DEFAULT_NAME };
+let settings = { aimLine: true, layout: 'left', winRounds: 5, bots: 1, diff: 'normal', map: 'random', type: 'wilk', paint: 'std', lang: 'pl', name: DEFAULT_NAME };
 
 // Wszystkie ustawienia w jednym wpisie. Wersja na komputer (maze_tanks_web) działa pod tym samym adresem i dzieli z nami
 // localStorage: przy pierwszym uruchomieniu bierzemy jej ustawienia albo stare klucze, ale niczego nie kasujemy – są jej potrzebne.
@@ -1747,6 +1756,9 @@ function loadSettings() {
   const paint = s.paint || (Array.isArray(s.paints) && s.paints[0]);
   settings.paint = oneOf(paint, PAINT_KEYS, settings.paint);
   if (typeof s.aimLine === 'boolean') settings.aimLine = s.aimLine;
+  // język: zapisany wybór, a za pierwszym razem język telefonu (polski → PL, inny → EN)
+  settings.lang = oneOf(s.lang, ['pl', 'en'], /^pl\b/i.test(navigator.language || '') ? 'pl' : 'en');
+  lang = settings.lang;
   if (typeof s.sound === 'boolean') soundOn = s.sound;
   if (first) saveSettings();
 }
@@ -1775,16 +1787,16 @@ function medalSVG(kind, cls = '') {
 function renderCabinet() { // gablota: medale wg imion, w menu – ich liczba
   const list = Object.entries(medals).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
   $('medCnt').textContent = list.reduce((s, [, n]) => s + n, 0) + (camp.tygrys ? 1 : 0);
-  const vet = camp.tygrys ? `<div class="medal">${medalSVG('gold')}<b>Weteran kampanii</b><span>★</span></div>` : '';
+  const vet = camp.tygrys ? `<div class="medal">${medalSVG('gold')}<b>${L('Weteran kampanii', 'Campaign Veteran')}</b><span>★</span></div>` : '';
   $('medList').innerHTML = list.length || vet
     ? vet + list.map(([n, k]) => `<div class="medal">${medalSVG('gold')}<b>${esc(n)}</b><span>×${k}</span></div>`).join('')
-    : '<p class="note">Gablota czeka na pierwszy złoty medal. Wygraj mecz, a pojawi się tutaj.</p>';
+    : `<p class="note">${L('Gablota czeka na pierwszy złoty medal. Wygraj mecz, a pojawi się tutaj.', 'The cabinet is waiting for your first gold medal. Win a match and it will show up here.')}</p>`;
 }
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 function newGame() {
   mission = null;
-  roster = [{ name: settings.name, isBot: false, type: settings.type, paint: settings.paint }];
+  roster = [{ name: shownName(settings.name), isBot: false, type: settings.type, paint: settings.paint }];
   for (let i = 0; i < settings.bots; i++) roster.push({ name: 'Bot ' + (i + 1), isBot: true, type: null });
   roster.forEach((p, i) => p.color = COLORS[i]);
   scores = roster.map(() => 0);
@@ -1834,7 +1846,7 @@ function newRoundInner() {
   cam.snap = true; // nowa runda – kamera od razu przy czołgu
   roundOver = false;
   const top = Math.max(0, ...scores);
-  banner = top >= settings.winRounds ? 'Dogrywka' : 'Runda ' + roundNo;
+  banner = top >= settings.winRounds ? L('Dogrywka', 'Overtime') : L('Runda ', 'Round ') + roundNo;
   bannerSub = theme.name + (rule ? ': ' + RULES[rule].name : '');
   countT = demo ? 0 : 3 * COUNT_STEP; goT = 0; roundT = 0;
   bannerT = countT + 1.2; // nazwa zasady specjalnej zostaje chwilę po starcie
@@ -2008,7 +2020,7 @@ function drawJoys() {
     setIfChanged(j, 'left', p.x + 'px', v => j.el.style.left = v);
     setIfChanged(j, 'top', p.y + 'px', v => j.el.style.top = v);
     setIfChanged(j, 'idle', !st.active, v => j.el.classList.toggle('idle', v));
-    setIfChanged(j, 'name', name, v => { j.el.classList.toggle('fire', v === 'fire'); j.lbl.textContent = v === 'move' ? 'JAZDA' : 'STRZAŁ'; });
+    setIfChanged(j, 'name', name + lang, () => { j.el.classList.toggle('fire', name === 'fire'); j.lbl.textContent = name === 'move' ? L('JAZDA', 'MOVE') : L('STRZAŁ', 'FIRE'); });
     setIfChanged(j, 'knob', `translate(${st.dx * JOY_R}px, ${st.dy * JOY_R}px)`, v => j.knob.style.transform = v);
   }
 }
@@ -2312,8 +2324,8 @@ function update(dt) {
     const alive = tanks.filter(t => t.alive), me = tanks.find(t => !t.isBot);
     if (alive.length <= 1) {
       roundOver = true; endTimer = 2.5;
-      if (alive.length === 1) { scores[alive[0].id]++; banner = alive[0].name + ' wygrywa rundę!'; }
-      else banner = 'Remis!';
+      if (alive.length === 1) { scores[alive[0].id]++; banner = L(alive[0].name + ' wygrywa rundę!', alive[0].name + ' wins the round!'); }
+      else banner = L('Remis!', 'Draw!');
       bannerT = 2.5; bannerSub = ''; updateHud();
       if (alive.length === 1 && !alive[0].isBot) sfx.win(); else sfx.lose();
       achRoundEnd(alive[0] || null);
@@ -2324,7 +2336,7 @@ function update(dt) {
       const w = k && k.isBot && k.alive ? k : alive.reduce((a, b) => b.hp / b.type.hp > a.hp / a.type.hp ? b : a);
       roundOver = true; endTimer = 2.5;
       scores[w.id]++;
-      banner = w.name + ' wygrywa rundę!'; bannerT = 2.5; bannerSub = ''; updateHud();
+      banner = L(w.name + ' wygrywa rundę!', w.name + ' wins the round!'); bannerT = 2.5; bannerSub = ''; updateHud();
       sfx.lose();
       achRoundEnd(w);
     }
@@ -2685,7 +2697,7 @@ function draw() {
     const cx = UIW / 2, cy = cam.z > 1 ? UIH - 30 : 26; // w grze na dole (u góry są wyniki)
     ctx.fillStyle = 'rgba(16,22,13,.7)'; roundRect(ctx, cx - 62, cy - 16, 124, 32, 8); ctx.fill();
     ctx.font = '700 14px "Barlow Semi Condensed", Arial, sans-serif'; ctx.fillStyle = '#e8dcae'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText('WIATR', cx - 52, cy + 1);
+    ctx.fillText(L('WIATR', 'WIND'), cx - 52, cy + 1);
     ctx.save(); ctx.translate(cx + 30, cy); ctx.rotate(wind.a);
     const L = 6 + wind.f / 26; // długość strzałki rośnie z siłą wiatru
     ctx.strokeStyle = '#e8dcae'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
@@ -2827,7 +2839,7 @@ achTest('Czołgi', 'allTypes', 'Wszechstronny', 'Wygraj mecz każdym z 3 czołg�
 achFlag('Czołgi', 'david', 'Dawid i Goliat', 'Lisem zniszcz Niedźwiedzia.');
 achFlag('Czołgi', 'roller', 'Walec', 'Niedźwiedziem zniszcz 3 czołgi w jednej rundzie.');
 
-const km = v => (v / 8000).toFixed(1).replace('.', ',') + ' km'; // 1 kratka labiryntu = 10 m
+const km = v => L((v / 8000).toFixed(1).replace('.', ','), (v / 8000).toFixed(1)) + ' km'; // 1 kratka labiryntu = 10 m
 achTiers('Wytrwałość', 'dist', [[8000, 'Kierowca', 'Przejedź 1 km (kratka labiryntu to 10 m).'],
   [80000, 'Długodystansowiec', 'Przejedź 10 km.'], [400000, 'Dookoła świata', 'Przejedź 50 km.']], km);
 achTiers('Wytrwałość', 'matches', [[10, 'Stały bywalec', 'Rozegraj 10 meczów.'],
@@ -2864,8 +2876,8 @@ function nextAchToast() {
   if (!q) { achShowing = false; return; }
   achShowing = true;
   const pct = n => Math.floor(100 * n / ACH.length), paint = PAINTS.find(p => p.need && pct(q.n - 1) < p.need && pct(q.n) >= p.need);
-  el.innerHTML = medalSVG('gold') + `<div><b>Osiągnięcie ${q.n}/${ACH.length}</b><span>${esc(q.a.name)}</span>`
-    + (paint ? `<em>${paint.need}% osiągnięć: nowe malowanie ${paint.name}!</em>` : '') + '</div>';
+  el.innerHTML = medalSVG('gold') + `<div><b>${L('Osiągnięcie', 'Achievement')} ${q.n}/${ACH.length}</b><span>${esc(q.a.name)}</span>`
+    + (paint ? `<em>${L(`${paint.need}% osiągnięć: nowe malowanie ${paint.name}!`, `${paint.need}% of achievements: new paint job ${paint.name}!`)}</em>` : '') + '</div>';
   el.classList.add('show'); sfx.ach();
   setTimeout(() => { el.classList.remove('show'); setTimeout(nextAchToast, 300); }, paint ? 3800 : 2600);
 }
@@ -2969,25 +2981,25 @@ function achMatchEnd(w) { // w – indeks zwycięzcy meczu
 function renderVictoryAch() {
   const before = Math.floor(100 * (achCount() - newAch.length) / ACH.length);
   const paints = PAINTS.filter(p => p.need > before && paintOpen(p));
-  $('vach').innerHTML = newAch.length ? '<b>Nowe osiągnięcia:</b> ' + newAch.map(a => esc(a.name)).join(', ') + `. Masz już ${achPct()}%.`
-    + (paints.length ? ` Nowe malowanie: <b>${paints.map(p => p.name).join(', ')}</b> – wybierz je w garażu.` : '') : '';
+  $('vach').innerHTML = newAch.length ? `<b>${L('Nowe osiągnięcia:', 'New achievements:')}</b> ` + newAch.map(a => esc(a.name)).join(', ') + L(`. Masz już ${achPct()}%.`, `. You now have ${achPct()}%.`)
+    + (paints.length ? L(` Nowe malowanie: <b>${paints.map(p => p.name).join(', ')}</b> – wybierz je w garażu.`, ` New paint job: <b>${paints.map(p => p.name).join(', ')}</b> – pick it in the garage.`) : '') : '';
 }
 function renderAch() {
-  $('achSum').innerHTML = `<span class="achpct">${achPct()}%</span>Zdobyte: ${achCount()} z ${ACH.length}`
+  $('achSum').innerHTML = `<span class="achpct">${achPct()}%</span>${L(`Zdobyte: ${achCount()} z ${ACH.length}`, `Unlocked: ${achCount()} of ${ACH.length}`)}`
     + `<div class="achbar"><i style="width:${achPct()}%"></i>${PAINTS.slice(1).map(p => `<b class="${paintOpen(p) ? 'got' : ''}" style="left:${p.need}%"></b>`).join('')}</div>`
-    + '<p class="achnote">Nagrody: malowania czołgu za 25, 50, 75 i 100% osiągnięć. Wybierzesz je w garażu.</p>'
+    + `<p class="achnote">${L('Nagrody: malowania czołgu za 25, 50, 75 i 100% osiągnięć. Wybierzesz je w garażu.', 'Rewards: tank paint jobs at 25, 50, 75 and 100% of achievements. Pick them in the garage.')}</p>`
     + `<div class="achpaints">${PAINTS.slice(1).map(p => `<span class="${paintOpen(p) ? 'got' : ''}"><img src="${tankIcon(settings.type, COLORS[0], true, p.key)}" alt="">${p.need}% · ${p.name}</span>`).join('')}</div>`;
   $('achList').innerHTML = ACH_CATS.map(cat => {
     const list = ACH.filter(a => a.cat === cat);
-    return `<h3>${cat}<span>${list.filter(a => ach.got[a.id]).length} / ${list.length}</span></h3>${ACH_NOTES[cat] ? `<p class="note achcat">${ACH_NOTES[cat]}</p>` : ''}<div class="achgrid">` + list.map(a => {
+    return `<h3>${catName(cat)}<span>${list.filter(a => ach.got[a.id]).length} / ${list.length}</span></h3>${ACH_NOTES[cat] ? `<p class="note achcat">${ACH_NOTES[cat]}</p>` : ''}<div class="achgrid">` + list.map(a => {
       const has = !!ach.got[a.id], secret = a.hidden && !has;
       let bar = '';
       if (!has && a.prog) {
-        const [c, m] = a.prog(ach.s), f = a.fmt || (v => Math.floor(v).toLocaleString('pl-PL'));
+        const [c, m] = a.prog(ach.s), f = a.fmt || (v => Math.floor(v).toLocaleString(L('pl-PL', 'en-US')));
         bar = `<div class="pb"><i style="width:${Math.round(100 * c / m)}%"></i></div><div class="pn">${f(c)} / ${f(m)}</div>`;
       }
       return `<div class="ach${has ? ' got' : ''}"><div class="ico">${medalSVG(has ? 'gold' : 'silver')}</div><div>` +
-        `<b>${secret ? '???' : esc(a.name)}</b><small>${secret ? 'Ukryte. Odkryj je w grze.' : esc(a.desc)}</small>${bar}</div></div>`;
+        `<b>${secret ? '???' : esc(a.name)}</b><small>${secret ? L('Ukryte. Odkryj je w grze.', 'Hidden. Discover it in the game.') : esc(a.desc)}</small>${bar}</div></div>`;
     }).join('') + '</div>';
   }).join('');
 }
@@ -3150,10 +3162,10 @@ function missionTanks(m) {
 }
 function goalText(m) {
   const g = m.goal;
-  let t = g.type === 'survive' ? `Przetrwaj ${g.time} sekund` : g.type === 'zone' ? `Utrzymaj zaznaczony punkt przez ${g.time} sekund`
-    : m.ricochetOnly ? 'Zniszcz wszystkich, tylko rykoszetem' : 'Zniszcz wszystkich przeciwników';
-  if (m.waves) t += `, ${m.waves.length + 1} fale`;
-  if (m.ammo) t += `, masz ${m.ammo} pocisków`;
+  let t = g.type === 'survive' ? L(`Przetrwaj ${g.time} sekund`, `Survive ${g.time} seconds`) : g.type === 'zone' ? L(`Utrzymaj zaznaczony punkt przez ${g.time} sekund`, `Hold the marked point for ${g.time} seconds`)
+    : m.ricochetOnly ? L('Zniszcz wszystkich, tylko rykoszetem', 'Destroy everyone, with ricochets only') : L('Zniszcz wszystkich przeciwników', 'Destroy all opponents');
+  if (m.waves) t += L(`, ${m.waves.length + 1} fale`, `, ${m.waves.length + 1} waves`);
+  if (m.ammo) t += L(`, masz ${m.ammo} pocisków`, `, you have ${m.ammo} shells`);
   return t;
 }
 
@@ -3168,7 +3180,7 @@ function startMission(id, assist = false, tank = null) {
   goFullscreen();
   if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
   mission = { id, def, assist, tank, done: false, hold: 0, waveI: 0, nextWaveT: 0 };
-  roster = [{ name: settings.name || settings.names[0], isBot: false, paint: myPaint(), type: tank, mods: assist ? { hp: TYPES[tank].hp + 2 } : null,
+  roster = [{ name: shownName(settings.name), isBot: false, paint: myPaint(), type: tank, mods: assist ? { hp: TYPES[tank].hp + 2 } : null,
     ctrl: typeof CONTROLS !== 'undefined' ? CONTROLS[0] : undefined }];
   def.bots.forEach((b, i) => roster.push(botEntry(b, i, assist)));
   roster.forEach((p, i) => p.color = COLORS[i % COLORS.length]);
@@ -3218,17 +3230,17 @@ function missionUpdate(dt) { // zamiast zwykłego końca rundy: cel misji
   if (M.waveI < waves.length && !tanks.some(t => t.isBot && t.alive)) { // poprzednia fala zniszczona – po chwili następna
     M.nextWaveT += dt;
     if (M.nextWaveT >= 1.5) {
-      if (M.def.repair && me.alive) { me.hp = Math.min(me.type.hp, me.hp + M.def.repair); banner = 'Naprawa +' + M.def.repair; bannerSub = 'Nadjeżdża kolejna fala'; bannerT = 1.4; }
+      if (M.def.repair && me.alive) { me.hp = Math.min(me.type.hp, me.hp + M.def.repair); banner = L('Naprawa +', 'Repair +') + M.def.repair; bannerSub = L('Nadjeżdża kolejna fala', 'Next wave incoming'); bannerT = 1.4; }
       spawnBots(waves[M.waveI]); M.waveI++; M.nextWaveT = 0;
     }
   }
-  if (!me.alive) return finishMission(false, 'Twój czołg został zniszczony.');
+  if (!me.alive) return finishMission(false, L('Twój czołg został zniszczony.', 'Your tank was destroyed.'));
   let win = false;
   if (g.type === 'kill') win = M.waveI >= waves.length && !tanks.some(t => t.isBot && t.alive);
   else if (g.type === 'survive') win = roundT >= g.time;
   else if (g.type === 'zone') { if (Math.hypot(me.x - M.zone.x, me.y - M.zone.y) < CELL * 0.45) M.hold += dt; win = M.hold >= g.time; }
   if (win) finishMission(true);
-  else if (me.ammo === 0 && !bullets.some(b => b.owner === me) && g.type === 'kill') finishMission(false, 'Skończyła się amunicja.');
+  else if (me.ammo === 0 && !bullets.some(b => b.owner === me) && g.type === 'kill') finishMission(false, L('Skończyła się amunicja.', 'You ran out of ammo.'));
 }
 function finishMission(win, reason = '') {
   const M = mission, me = tanks.find(t => !t.isBot);
@@ -3241,7 +3253,7 @@ function finishMission(win, reason = '') {
   if (win && M.def.final && !camp.tygrys) { camp.tygrys = true; M.unlocked = true; buildTankCards(); } // nagroda za kampanię
   else camp.fails[M.id] = (camp.fails[M.id] || 0) + 1;
   saveCamp();
-  banner = win ? 'Misja wykonana' : 'Misja nieudana'; bannerSub = win ? '' : reason; bannerT = 2.2;
+  banner = win ? L('Misja wykonana', 'Mission complete') : L('Misja nieudana', 'Mission failed'); bannerSub = win ? '' : reason; bannerT = 2.2;
   if (win) sfx.win(); else sfx.lose();
   achRoundEnd(win ? me : null);
 }
@@ -3257,15 +3269,15 @@ function drawZone() { // punkt do zdobycia: pulsujące pole i postęp na okręgu
 }
 function missionStatus() {
   const M = mission, g = M.def.goal, waves = M.def.waves || [];
-  if (g.type === 'survive') return `Przetrwaj: ${Math.max(0, Math.ceil(g.time - roundT))} s`;
-  if (g.type === 'zone') return `Punkt: ${Math.floor(M.hold)} / ${g.time} s`;
+  if (g.type === 'survive') return `${L('Przetrwaj', 'Survive')}: ${Math.max(0, Math.ceil(g.time - roundT))} s`;
+  if (g.type === 'zone') return `${L('Punkt', 'Point')}: ${Math.floor(M.hold)} / ${g.time} s`;
   const left = tanks.filter(t => t.isBot && t.alive).length + waves.slice(M.waveI).reduce((n, w) => n + w.length, 0);
-  return `Przeciwnicy: ${left}` + (waves.length ? `, fala ${Math.min(M.waveI + 1, waves.length + 1)} z ${waves.length + 1}` : '');
+  return `${L('Przeciwnicy', 'Opponents')}: ${left}` + (waves.length ? L(`, fala ${Math.min(M.waveI + 1, waves.length + 1)} z ${waves.length + 1}`, `, wave ${Math.min(M.waveI + 1, waves.length + 1)} of ${waves.length + 1}`) : '');
 }
 function drawMissionHud() { // pasek celu misji
   const me = tanks.find(t => !t.isBot);
   if (!me || mission.done) return;
-  const txt = missionStatus() + (me.ammo !== undefined ? `     Pociski: ${me.ammo}` : '');
+  const txt = missionStatus() + (me.ammo !== undefined ? `     ${L('Pociski', 'Ammo')}: ${me.ammo}` : '');
   const cx = UIW / 2, cy = 78;
   ctx.font = '700 15px "Barlow Semi Condensed", Arial, sans-serif';
   const w = ctx.measureText(txt).width + 30;
@@ -3283,32 +3295,32 @@ function renderCampaign() {
   $('campStars').innerHTML = `${starSVG(true)}${got} / ${MISSIONS.length * 3}`;
   $('campReward').classList.toggle('dark', !camp.tygrys);
   $('campReward').innerHTML = `<img src="${tankIcon('tygrys', COLORS[0], true, myPaint())}" alt=""><div>` + (camp.tygrys
-    ? '<b>Tygrys zdobyty</b><span>Ultra czołg czeka w garażu. Możesz nim też grać w misjach, które już przeszedłeś.</span>'
-    : '<b>Nagroda: Tygrys</b><span>Ukończ kampanię, a dostaniesz ultra czołg z podwójną lufą: szybki jak Lis, pancerny jak Niedźwiedź.</span>') + '</div>';
+    ? L('<b>Tygrys zdobyty</b><span>Ultra czołg czeka w garażu. Możesz nim też grać w misjach, które już przeszedłeś.</span>', '<b>Tiger unlocked</b><span>The ultra tank is waiting in the garage. You can also use it in missions you have already completed.</span>')
+    : L('<b>Nagroda: Tygrys</b><span>Ukończ kampanię, a dostaniesz ultra czołg z podwójną lufą: szybki jak Lis, pancerny jak Niedźwiedź.</span>', '<b>Reward: Tiger</b><span>Finish the campaign to get an ultra tank with twin barrels: fast as the Fox, armored like the Bear.</span>')) + '</div>';
   if (!chapterUnlocked(camp.sel)) camp.sel = 0;
   $('chapters').innerHTML = CHAPTERS.map((c, i) => {
     const ms = MISSIONS.filter(m => m.ch === i), open = chapterUnlocked(i);
     const st = ms.reduce((n, m) => n + (camp.stars[m.id] || 0), 0);
     return `<button class="chap${i === camp.sel ? ' on' : ''}${open ? '' : ' locked'}" data-ch="${i}" style="background-image:url(${mapThumb(c.map)})">` +
-      `<span class="num">${c.elite ? '★' : i + 1}</span>${open ? '' : `<span class="lock">${c.elite ? mainStars() + '/' + ELITE_STARS + ' ★' : 'Zamknięte'}</span>`}` +
+      `<span class="num">${c.elite ? '★' : i + 1}</span>${open ? '' : `<span class="lock">${c.elite ? mainStars() + '/' + ELITE_STARS + ' ★' : L('Zamknięte', 'Locked')}</span>`}` +
       `<span class="cn"><b>${c.name}</b><small>${ms.length ? st + '/' + ms.length * 3 : ''}</small></span></button>`;
   }).join('');
   $('chapters').querySelectorAll('.chap').forEach(b => b.onclick = () => { const i = +b.dataset.ch; if (chapterUnlocked(i)) { camp.sel = i; saveCamp(); renderCampaign(); } });
   const c = CHAPTERS[camp.sel], R = c.elite ? null : RULES[THEMES[c.map].rule], ms = MISSIONS.filter(m => m.ch === camp.sel);
-  $('chapter').innerHTML = (c.elite ? `<h3>Misje elitarne</h3><p class="note">Najtrudniejsze wersje szefów. Czołg wybierasz sam.</p>`
-    : `<h3>Rozdział ${camp.sel + 1}: ${c.name}</h3><p class="note">${R.name}. ${R.desc}</p>`) + '<div class="missions">' +
+  $('chapter').innerHTML = (c.elite ? `<h3>${L('Misje elitarne', 'Elite missions')}</h3><p class="note">${L('Najtrudniejsze wersje szefów. Czołg wybierasz sam.', 'The toughest versions of the bosses. You choose your tank.')}</p>`
+    : `<h3>${L('Rozdział', 'Chapter')} ${camp.sel + 1}: ${c.name}</h3><p class="note">${R.name}. ${R.desc}</p>`) + '<div class="missions">' +
     ms.map((m, k) => {
       const open = missionUnlocked(MISSIONS.indexOf(m));
-      const where = c.elite ? THEMES[m.map].name : m.boss ? 'Szef' : 'Misja ' + (k + 1);
+      const where = c.elite ? THEMES[m.map].name : m.boss ? L('Szef', 'Boss') : L('Misja ', 'Mission ') + (k + 1);
       return `<button class="mis${open ? '' : ' locked'}" data-m="${m.id}"><img src="${tankIcon(m.tank || 'wilk', COLORS[0], true, myPaint())}" alt="">` +
-        `<span><small>${where}, ${m.tank ? TYPES[m.tank].name : 'czołg do wyboru'}</small><b>${m.name}</b></span>${starRow(camp.stars[m.id] || 0)}</button>`;
+        `<span><small>${where}, ${m.tank ? TYPES[m.tank].name : L('czołg do wyboru', 'any tank')}</small><b>${m.name}</b></span>${starRow(camp.stars[m.id] || 0)}</button>`;
     }).join('') + '</div>';
   $('chapter').querySelectorAll('.mis').forEach(b => b.onclick = () => { if (missionUnlocked(MISSIONS.findIndex(m => m.id === b.dataset.m))) openBrief(b.dataset.m); });
 }
 function unitCard(b, i) {
   const notes = [TYPES[b.type].name, CAMP_LV[b.diff]];
-  if (b.turret) notes.push('stoi w miejscu');
-  if (b.mods && b.mods.hp) notes.push(`pancerz ${b.mods.hp}`);
+  if (b.turret) notes.push(L('stoi w miejscu', 'stationary'));
+  if (b.mods && b.mods.hp) notes.push(`${L('pancerz', 'armor')} ${b.mods.hp}`);
   return `<div class="unit${b.boss ? ' boss' : ''}"><img src="${tankIcon(b.type, COLORS[1 + i % (COLORS.length - 1)], true)}" alt="">` +
     `<span><b>${b.name || 'Bot ' + (i + 1)}</b><small>${notes.join(', ')}</small></span></div>`;
 }
@@ -3318,13 +3330,13 @@ function openBrief(id, assist = false, tank = null) {
   briefId = id; briefAssist = assist; briefTank = choice.includes(tank) ? tank : choice[0];
   const foes = m.bots.map(unitCard).join('') + (m.waves || []).map((w, wi) => w.map((b, i) => unitCard(b, m.bots.length + i)).join('')).join('');
   const conds = [goalText(m), ...m.stars.map(c => c.text)].map((t, i) => `<li>${starSVG(i < best)}<span>${t}</span></li>`).join('');
-  $('briefBox').innerHTML = `<div class="kick">${CHAPTERS[m.ch].elite ? 'Misja elitarna, ' + THEMES[m.map].name : `Rozdział ${m.ch + 1}, ${m.boss ? 'szef' : 'misja ' + (k + 1)}`}</div><h2>${m.name}</h2><p>${m.desc}</p>${m.final && !camp.tygrys ? `<div class="unlock prize dark"><img src="${tankIcon('tygrys', COLORS[0], true, myPaint())}" alt=""><div><b>Nagroda: Tygrys</b><span>Wygraj finał, a dostaniesz ultra czołg i medal Weteran kampanii.</span></div></div>` : ''}
-    <div class="bteams"><div><span class="lab">${choice.length > 1 ? 'Wybierz czołg' : 'Twój czołg'}</span><div class="brow">${choice.map(t =>
+  $('briefBox').innerHTML = `<div class="kick">${CHAPTERS[m.ch].elite ? L('Misja elitarna, ', 'Elite mission, ') + THEMES[m.map].name : L(`Rozdział ${m.ch + 1}, ${m.boss ? 'szef' : 'misja ' + (k + 1)}`, `Chapter ${m.ch + 1}, ${m.boss ? 'boss' : 'mission ' + (k + 1)}`)}</div><h2>${m.name}</h2><p>${m.desc}</p>${m.final && !camp.tygrys ? `<div class="unlock prize dark"><img src="${tankIcon('tygrys', COLORS[0], true, myPaint())}" alt=""><div>${L('<b>Nagroda: Tygrys</b><span>Wygraj finał, a dostaniesz ultra czołg i medal Weteran kampanii.</span>', '<b>Reward: Tiger</b><span>Win the finale to get the ultra tank and the Campaign Veteran medal.</span>')}</div></div>` : ''}
+    <div class="bteams"><div><span class="lab">${choice.length > 1 ? L('Wybierz czołg', 'Choose your tank') : L('Twój czołg', 'Your tank')}</span><div class="brow">${choice.map(t =>
       `<${choice.length > 1 ? 'button' : 'div'} class="unit me${choice.length > 1 ? ' pick' + (t === briefTank ? ' on' : '') : ''}" data-t="${t}"><img src="${tankIcon(t, COLORS[0], true, myPaint())}" alt=""><span><b>${TYPES[t].name}</b><small>${TYPE_INFO[t].cls}</small></span></${choice.length > 1 ? 'button' : 'div'}>`).join('')}</div></div>
-      <div><span class="lab">Przeciwnicy</span><div class="brow">${foes}</div></div></div>
-    <div><span class="lab">Gwiazdki</span><ul class="conds">${conds}</ul></div>
-    ${(camp.fails[id] || 0) >= 3 ? `<button class="assist${assist ? ' on' : ''}" id="assistBtn">${assist ? '✓ ' : ''}Wersja ułatwiona: +2 pancerza i słabsze boty, najwyżej 1 gwiazdka</button>` : ''}
-    <div class="bbtns"><button class="ghost" id="briefBack">‹ Kampania</button><button class="cta" id="briefGo">Do boju</button></div>`;
+      <div><span class="lab">${L('Przeciwnicy', 'Opponents')}</span><div class="brow">${foes}</div></div></div>
+    <div><span class="lab">${L('Gwiazdki', 'Stars')}</span><ul class="conds">${conds}</ul></div>
+    ${(camp.fails[id] || 0) >= 3 ? `<button class="assist${assist ? ' on' : ''}" id="assistBtn">${assist ? '✓ ' : ''}${L('Wersja ułatwiona: +2 pancerza i słabsze boty, najwyżej 1 gwiazdka', 'Easier version: +2 armor and weaker bots, 1 star at most')}</button>` : ''}
+    <div class="bbtns"><button class="ghost" id="briefBack">‹ ${L('Kampania', 'Campaign')}</button><button class="cta" id="briefGo">${L('Do boju', 'Fight!')}</button></div>`;
   $('briefBack').onclick = goCampaign;
   $('briefGo').onclick = () => startMission(briefId, briefAssist, briefTank);
   if ($('assistBtn')) $('assistBtn').onclick = () => openBrief(id, !briefAssist, briefTank);
@@ -3339,18 +3351,18 @@ function showMissionResult() {
   if (next && !missionUnlocked(MISSIONS.indexOf(next))) next = null;
   const rows = [goalText(m), ...m.stars.map(c => c.text)].map((t, i) => `<li>${starSVG(M.result[i])}<span>${t}</span></li>`).join('');
   const btns = [];
-  if (M.win && next) btns.push(['cta', 'resNext', 'Dalej']);
-  if (!M.win) btns.push(['cta', 'resRetry', 'Jeszcze raz']);
-  if (!M.win && fails >= 3 && !M.assist) btns.push(['mbtn', 'resEasy', 'Spróbuj łatwiej']);
-  if (M.win) btns.push([next ? 'mbtn' : 'cta', 'resRetry', 'Jeszcze raz']);
-  btns.push(['mbtn', 'resCamp', 'Kampania']);
-  btns.push(['mbtn', 'resMenu', 'Menu główne']);
-  $('resBox').innerHTML = `<div class="kick">${m.name}</div><h2>${M.win ? 'Misja wykonana' : 'Misja nieudana'}</h2>
+  if (M.win && next) btns.push(['cta', 'resNext', L('Dalej', 'Next')]);
+  if (!M.win) btns.push(['cta', 'resRetry', L('Jeszcze raz', 'Try again')]);
+  if (!M.win && fails >= 3 && !M.assist) btns.push(['mbtn', 'resEasy', L('Spróbuj łatwiej', 'Try it easier')]);
+  if (M.win) btns.push([next ? 'mbtn' : 'cta', 'resRetry', L('Jeszcze raz', 'Play again')]);
+  btns.push(['mbtn', 'resCamp', L('Kampania', 'Campaign')]);
+  btns.push(['mbtn', 'resMenu', L('Menu główne', 'Main menu')]);
+  $('resBox').innerHTML = `<div class="kick">${m.name}</div><h2>${M.win ? L('Misja wykonana', 'Mission complete') : L('Misja nieudana', 'Mission failed')}</h2>
     <div class="bigstars">${[0, 1, 2].map(i => starSVG(M.result[i], `animation-delay:${0.2 + i * 0.25}s`)).join('')}</div>
     ${M.win ? '' : `<p class="note">${M.reason}</p>`}
-    ${M.assist ? '<p class="note">Wersja ułatwiona: najwyżej jedna gwiazdka.</p>' : ''}
-    ${M.unlocked ? `<div class="unlock"><img src="${tankIcon('tygrys', COLORS[0], true, myPaint())}" alt=""><div><b>Kampania ukończona</b><span>Zdobywasz medal Weteran kampanii i Tygrysa, najlepszy czołg w grze. Wybierz go w garażu albo w misjach, które już przeszedłeś.</span></div></div>` : ''}
-    ${M.win && !next && m.final ? `<p class="note">Misje elitarne otworzą się po zdobyciu ${ELITE_STARS} gwiazdek w rozdziałach 1–8. Masz ${mainStars()}.</p>` : ''}
+    ${M.assist ? `<p class="note">${L('Wersja ułatwiona: najwyżej jedna gwiazdka.', 'Easier version: one star at most.')}</p>` : ''}
+    ${M.unlocked ? `<div class="unlock"><img src="${tankIcon('tygrys', COLORS[0], true, myPaint())}" alt=""><div>${L('<b>Kampania ukończona</b><span>Zdobywasz medal Weteran kampanii i Tygrysa, najlepszy czołg w grze. Wybierz go w garażu albo w misjach, które już przeszedłeś.</span>', '<b>Campaign complete</b><span>You earn the Campaign Veteran medal and the Tiger, the best tank in the game. Pick it in the garage or in missions you have already completed.</span>')}</div></div>` : ''}
+    ${M.win && !next && m.final ? `<p class="note">${L(`Misje elitarne otworzą się po zdobyciu ${ELITE_STARS} gwiazdek w rozdziałach 1–8. Masz ${mainStars()}.`, `Elite missions unlock once you earn ${ELITE_STARS} stars in chapters 1–8. You have ${mainStars()}.`)}</p>` : ''}
     <ul class="conds">${rows}</ul>
     <div class="vbtns">${btns.map(([c, id, t]) => `<button class="${c}" id="${id}">${t}</button>`).join('')}</div>`;
   if ($('resNext')) $('resNext').onclick = () => openBrief(next.id);
@@ -3376,10 +3388,11 @@ function showVictory(w) {
   achMatchEnd(w);
   if (!p.isBot) { medals[p.name] = (medals[p.name] || 0) + 1; saveMedals(); }
   document.getElementById('vmedal').innerHTML = medalSVG('gold', 'big');
-  document.getElementById('vtitle').textContent = p.name + ' wygrywa mecz';
+  document.getElementById('vtitle').textContent = L(p.name + ' wygrywa mecz', p.name + ' wins the match');
   document.getElementById('vsub').textContent = p.isBot
-    ? 'Medal zgarnia bot. Czas na rewanż.'
-    : 'Złoty medal za ' + (settings.winRounds === 3 ? '3 wygrane rundy' : settings.winRounds + ' wygranych rund') + '.' + (medals[p.name] > 1 ? ' To już ' + medals[p.name] + '. medal.' : '');
+    ? L('Medal zgarnia bot. Czas na rewanż.', 'A bot takes the medal. Time for a rematch.')
+    : L('Złoty medal za ' + (settings.winRounds === 3 ? '3 wygrane rundy' : settings.winRounds + ' wygranych rund') + '.' + (medals[p.name] > 1 ? ' To już ' + medals[p.name] + '. medal.' : ''),
+      `Gold medal for ${settings.winRounds} round wins.` + (medals[p.name] > 1 ? ` That's medal number ${medals[p.name]}.` : ''));
   // ranking: miejsca wg punktów, ex aequo mają to samo miejsce
   const order = roster.map((r, i) => i).sort((a, b) => scores[b] - scores[a]);
   let place = 0, prev = null;
@@ -3467,8 +3480,8 @@ function buildTankCards() {
       <img alt="">
       <span class="tclass">${TYPE_INFO[k].cls}</span>
       <span class="tname">${TYPES[k].name}</span>
-      <span class="tdesc">${lock ? 'Nagroda za kampanię. Przejdź wszystkie 8 rozdziałów, żeby go odblokować.' : TYPE_INFO[k].desc}</span>
-      ${lock ? '<span class="tlock">Zamknięte</span>' : STAT_NAMES.map((n, i) => `<span class="stat"><span>${n}</span><span class="bar">${[1, 2, 3, 4, 5].map(v => `<i class="${v <= TYPE_INFO[k].stats[i] ? 'f' : ''}"></i>`).join('')}</span></span>`).join('')}
+      <span class="tdesc">${lock ? L('Nagroda za kampanię. Przejdź wszystkie 8 rozdziałów, żeby go odblokować.', 'Campaign reward. Complete all 8 chapters to unlock it.') : TYPE_INFO[k].desc}</span>
+      ${lock ? `<span class="tlock">${L('Zamknięte', 'Locked')}</span>` : STAT_NAMES.map((n, i) => `<span class="stat"><span>${n}</span><span class="bar">${[1, 2, 3, 4, 5].map(v => `<i class="${v <= TYPE_INFO[k].stats[i] ? 'f' : ''}"></i>`).join('')}</span></span>`).join('')}
     </button>`; }).join('');
   $('tankcards').querySelectorAll('.tcard').forEach(b => b.onclick = () => { if (b.classList.contains('locked')) return; settings.type = b.dataset.type; saveSettings(); renderSetup(); });
   document.querySelectorAll('[data-map]').forEach(b => b.style.backgroundImage = `url(${mapThumb(b.dataset.map)})`);
@@ -3476,6 +3489,7 @@ function buildTankCards() {
 
 function renderSplash() {
   renderCabinet();
+  document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
   $('achPct').textContent = achPct() + '%';
 }
 
@@ -3488,6 +3502,7 @@ const SETUP_OPTS = {
   lay:  { get: () => settings.layout,    set: v => { settings.layout = v; } },
   snd:  { get: () => soundOn ? 1 : 0,    set: v => { initAudio(); setSound(v === '1'); } },
   aim:  { get: () => settings.aimLine ? 1 : 0, set: v => { settings.aimLine = v === '1'; } },
+  lang: { get: () => settings.lang,      set: v => setLang(v) },
 };
 
 // kafelki malowań w garażu; zablokowany kafelek mówi, ile osiągnięć jeszcze brakuje
@@ -3495,36 +3510,35 @@ let paintMsg = '';
 function renderPaints() {
   const cur = usePaint(settings.paint);
   $('paints').innerHTML = PAINTS.map(p => `<button class="pt${p.key === cur ? ' on' : ''}${paintOpen(p) ? '' : ' locked'}" data-paint="${p.key}">
-      <img src="${tankIcon(settings.type, COLORS[0], true, p.key)}" alt="">${p.name}${paintOpen(p) ? '' : `<small>od ${p.need}%</small>`}</button>`).join('');
+      <img src="${tankIcon(settings.type, COLORS[0], true, p.key)}" alt="">${p.name}${paintOpen(p) ? '' : `<small>${L('od', 'at')} ${p.need}%</small>`}</button>`).join('');
   $('paints').querySelectorAll('.pt').forEach(b => b.onclick = () => {
     const p = PAINTS.find(q => q.key === b.dataset.paint);
     if (paintOpen(p)) { settings.paint = p.key; paintMsg = ''; saveSettings(); renderSetup(); return; }
-    paintMsg = `${p.name}: odblokujesz przy ${p.need}% osiągnięć (masz ${achPct()}%).`;
+    paintMsg = L(`${p.name}: odblokujesz przy ${p.need}% osiągnięć (masz ${achPct()}%).`, `${p.name}: unlocks at ${p.need}% of achievements (you have ${achPct()}%).`);
     renderPaints();
   });
   const desc = PAINTS.find(p => p.key === cur).desc;
-  $('paintnote').textContent = paintMsg || (PAINTS.some(p => !paintOpen(p)) ? `${desc} Kolejne malowania odblokujesz za osiągnięcia (masz ${achPct()}%).` : desc);
+  $('paintnote').textContent = paintMsg || (PAINTS.some(p => !paintOpen(p)) ? `${desc} ${L(`Kolejne malowania odblokujesz za osiągnięcia (masz ${achPct()}%).`, `Unlock more paint jobs with achievements (you have ${achPct()}%).`)}` : desc);
 }
 
 function renderSetup() {
   if (settings.type === 'tygrys' && !camp.tygrys) settings.type = 'wilk'; // Tygrys dopiero po kampanii
   for (const [attr, o] of Object.entries(SETUP_OPTS))
     document.querySelectorAll(`[data-${attr}]`).forEach(b => b.classList.toggle('on', b.dataset[attr] === String(o.get())));
-  $('rulenote').textContent = settings.map === 'random' ? 'Co rundę inna mapa, każda z własną zasadą.'
+  $('rulenote').textContent = settings.map === 'random' ? L('Co rundę inna mapa, każda z własną zasadą.', 'A different map every round, each with its own rule.')
     : RULES[THEMES[settings.map].rule].name + '. ' + RULES[THEMES[settings.map].rule].desc;
   const inp = $('nameInput');
   if (document.activeElement !== inp) inp.value = settings.name === DEFAULT_NAME ? '' : settings.name;
-  inp.placeholder = DEFAULT_NAME;
+  inp.placeholder = shownName(DEFAULT_NAME);
   document.querySelectorAll('#tankcards .tcard').forEach(b => {
     b.classList.toggle('on', b.dataset.type === settings.type);
     b.querySelector('img').src = tankIcon(b.dataset.type, COLORS[0], true, usePaint(settings.paint));
   });
   renderPaints();
   // podsumowanie na dole
-  const LV = { easy: 'Rekrut', normal: 'Żołnierz', hard: 'Komandos' };
-  const foes = `${settings.bots} ${settings.bots === 1 ? 'bot' : 'boty'}`;
-  const map = settings.map === 'random' ? 'losowa mapa' : 'mapa ' + THEMES[settings.map].name;
-  $('summary').innerHTML = `<b>${esc(settings.name)} (${TYPES[settings.type].name}) kontra ${foes}</b><span>Poziom ${LV[settings.diff]}, ${map}, mecz do ${settings.winRounds}</span>`;
+  const foes = `${settings.bots} ${settings.bots === 1 ? 'bot' : L('boty', 'bots')}`;
+  const map = settings.map === 'random' ? L('losowa mapa', 'random map') : L('mapa ', 'map: ') + THEMES[settings.map].name;
+  $('summary').innerHTML = `<b>${esc(shownName(settings.name))} (${TYPES[settings.type].name}) ${L('kontra', 'vs')} ${foes}</b><span>${L('Poziom', 'Level')} ${CAMP_LV[settings.diff]}, ${map}, ${L('mecz do', 'first to')} ${settings.winRounds}</span>`;
 }
 const refreshMenu = () => { if (screen === 'setup' || screen === 'options') renderSetup(); };
 
@@ -3553,7 +3567,7 @@ function startGame() {
   newGame();
   setScreen('game');
 }
-function openPause() { if (screen !== 'game') return; $('p-setup').textContent = mission ? 'Kampania' : 'Garaż'; paused = true; needsDraw = true; resetSticks(); setScreen('pause'); }
+function openPause() { if (screen !== 'game') return; $('p-setup').textContent = mission ? L('Kampania', 'Campaign') : L('Garaż', 'Garage'); paused = true; needsDraw = true; resetSticks(); setScreen('pause'); }
 function resumeGame() { if (screen !== 'pause') return; paused = false; setScreen('game'); }
 
 // przyciski
@@ -3571,7 +3585,12 @@ $('achBtn').onclick = goAch;
 $('achBack').onclick = goSplash;
 $('campBtn').onclick = goCampaign;
 $('campBack').onclick = goSplash;
-$('howBtn').onclick = () => { $('howWin').textContent = settings.winRounds; setScreen('how'); };
+$('howBtn').onclick = () => { renderHow(); setScreen('how'); };
+function renderHow() {
+  const n = settings.winRounds;
+  $('howWinTip').textContent = L(`Runda to jedna walka: wygrywa ją ostatni czołg na placu. Mecz to seria rund: kto pierwszy wygra ${n} rund, wygrywa mecz i dostaje złoty medal do gabloty.`,
+    `A round is one battle: the last tank standing wins it. A match is a series of rounds: whoever first wins ${n} rounds wins the match and gets a gold medal for the cabinet.`);
+}
 $('howBack').onclick = goSplash;
 $('medBtn').onclick = () => { renderCabinet(); setScreen('medals'); };
 $('medBack').onclick = goSplash;
@@ -3581,6 +3600,209 @@ for (const [attr, o] of Object.entries(SETUP_OPTS))
   document.querySelectorAll(`[data-${attr}]`).forEach(b => b.onclick = () => { o.set(b.dataset[attr]); renderSetup(); saveSettings(); });
 $('nameInput').addEventListener('input', e => { settings.name = e.target.value.trim().slice(0, 12) || DEFAULT_NAME; saveSettings(); renderSetup(); });
 document.addEventListener('click', e => { if (e.target.closest && e.target.closest('.screen button')) { initAudio(); sfx.click(); } });
+// ===================== TŁUMACZENIE (EN) =====================
+// Dane gry mają polskie teksty; tu są angielskie odpowiedniki. applyLang() podmienia je w miejscu
+// (polski oryginał zostaje w ukrytym polu _pl_…), więc reszta kodu czyta po prostu .name / .desc.
+const EN = {
+  types: { lis: 'Fox', wilk: 'Wolf', mis: 'Bear', tygrys: 'Tiger' },
+  typeInfo: {
+    lis: ['light', 'Fast as lightning, fires in bursts. Can\'t take much.'],
+    wilk: ['medium', 'Good at everything. The best to start with.'],
+    mis: ['heavy', 'A slow fortress. Takes the most, fires rarely.'],
+    tygrys: ['ultra', 'Campaign reward. Fast as the Fox, armored like the Bear.'],
+  },
+  stats: ['Speed', 'Armor', 'Firepower', 'Fire rate'],
+  themes: { las: 'Forest', pole: 'Field', miasto: 'City', pustynia: 'Desert', zima: 'Winter', baza: 'Military Base', ksiezyc: 'Moon', noc: 'Night' },
+  rules: {
+    bushes: ['Hiding in bushes', 'You can drive through bushes and hide in them. Shells fly through them.'],
+    wind: ['Wind', 'The wind pushes shells. The arrow at the top shows its direction and strength.'],
+    fire: ['Burning cars', 'Stay away from burning wrecks. The heat burns at once and keeps taking armor.'],
+    sand: ['Quicksand', 'After driving for a long time your tank gets stuck. Stop or reverse to break free.'],
+    slide: ['Slippery', 'Tanks slide, and even more on frozen puddles.'],
+    ammo: ['Ammo crates', 'Crates explode when you drive into them or hit them, damaging tanks nearby. Sandbags absorb shells.'],
+    lowg: ['Low gravity', 'Tanks drift like in space. Shells fly slower but bounce 2 more times.'],
+    dark: ['Darkness', 'You only see what is lit. Firing gives away your position.'],
+  },
+  paints: {
+    std: ['Standard', 'Factory finish in your color.'],
+    moro: ['Camo', 'Camouflage blotches in shades of your color.'],
+    cyfr: ['Digital', 'Pixel camouflage and a white star on the turret.'],
+    ogien: ['Flames', 'Dark hull, flames on the front and a silver barrel.'],
+    zloto: ['Gold', 'Solid gold, with a stripe in your color and a crown on the turret.'],
+  },
+  levels: { easy: 'Recruit', normal: 'Soldier', hard: 'Commando' },
+  chapters: { Las: 'Forest', Pole: 'Field', Pustynia: 'Desert', Zima: 'Winter', Miasto: 'City', Baza: 'Base', Noc: 'Night', 'Księżyc': 'Moon', Elita: 'Elite' },
+  cats: { 'Strzelanie': 'Shooting', 'Wybuchy i ogień': 'Explosions and fire', 'Przetrwanie': 'Survival', 'Zwycięstwa': 'Victories', 'Mapy': 'Maps',
+    'Czołgi': 'Tanks', 'Wytrwałość': 'Endurance', 'Kolekcja': 'Collection', 'Ukryte': 'Hidden' },
+  achNotes: { 'Zwycięstwa': 'A round is one battle – the last tank on the map wins it. A match is a series of rounds in Quick battle: whoever first gets 3, 5 or 7 round wins (set in the garage) wins it. A won campaign mission counts as a won round.' },
+  bosses: { 'Stanowisko 1': 'Post 1', 'Stanowisko 2': 'Post 2', 'Leśnik': 'Forester', 'Wichura': 'Gale', 'Skorpion': 'Scorpion', 'Bałwan': 'Snowman',
+    'Strażak': 'Fireman', 'Generał': 'General', 'Duch': 'Ghost', 'Cień': 'Shadow' },
+  ach: {
+    kills_1: ['First blood', 'Destroy your first enemy tank.'], kills_10: ['Tanker', 'Destroy 10 enemy tanks.'],
+    kills_50: ['Veteran', 'Destroy 50 enemy tanks.'], kills_100: ['Armored ace', 'Destroy 100 enemy tanks.'], kills_500: ['Frontline legend', 'Destroy 500 enemy tanks.'],
+    ricochet_1: ['Ricochet!', 'Destroy a tank with a bounced shell.'], ricochet_10: ['Bounce master', 'Destroy 10 tanks with ricochets.'],
+    ricochet_50: ['Geometer', 'Destroy 50 tanks with ricochets.'], ricochet_250: ['Professor of ricochets', 'Destroy 250 tanks with ricochets.'],
+    bank2_1: ['Billiards', 'Destroy a tank with a shell after at least 2 bounces.'], bank2_10: ['Pool shark', 'Destroy 10 tanks after at least 2 bounces.'],
+    bank3: ['Three cushions', 'Destroy a tank with a shell after 3 bounces.'],
+    lastBounce: ['Last chance', 'Destroy a tank with a blinking shell, on its last bounce.'],
+    longShots_1: ['Sniper', 'Destroy a tank with a shell that flew over half the map.'],
+    hiddenKills_1: ['Blind shot', 'Destroy a tank hidden in the dark or in bushes.'], hiddenKills_10: ['Night hunter', 'Destroy 10 unseen tanks.'],
+    double: ['Double hit', 'Destroy 2 tanks within 1.5 seconds.'], hattrick: ['Hat trick', 'Destroy 3 tanks in one round.'],
+    cleanField: ['Clean sweep', 'Destroy all bots yourself in a round with 3 bots.'],
+    shots_100: ['Warm-up', 'Fire 100 shells.'], shots_1000: ['Heavy artillery', 'Fire 1000 shells.'],
+    hits_100: ['Sharp eye', 'Hit opponents 100 times.'], noMiss: ['No misses', 'Win a round hitting with every shell (at least 3 shots).'],
+    crateKills_1: ['Sapper', 'Destroy a tank with an exploding ammo crate.'], crateKills_10: ['Pyrotechnician', 'Destroy 10 tanks with crate explosions.'],
+    fireworks: ['Fireworks', 'Destroy 2 enemy tanks with one explosion.'], chain: ['Chain reaction', 'Set off an explosion that detonates 3 crates in a row.'],
+    burned_1: ['Hot trap', 'Let a bot burn next to a burning wreck.'], fireman: ['Firefighter', 'Win a round in the City without getting burned.'],
+    flawless_1: ['Not a scratch', 'Win a round without taking a hit.'], flawless_10: ['Untouchable', 'Win 10 rounds without taking a hit.'],
+    clutch_1: ['By a hair', 'Win a round with 1 armor point left.'], clutch_10: ['Nine lives', 'Win 10 rounds with 1 armor point left.'],
+    iron: ['Ironclad', 'Win a match without losing a single armor point.'], lastStanding: ['Last one standing', 'Win a round against 3 hard bots.'],
+    pacifist: ['Pacifist', 'Win a round without firing a shot.'], marathon: ['Marathon', 'Win a round that lasted over 90 seconds.'],
+    roundWins_1: ['First round', 'Win your first round: be the last tank on the map.'], roundWins_10: ['Ten up', 'Win 10 rounds (single battles).'],
+    roundWins_50: ['Seasoned', 'Win 50 rounds (single battles).'], roundWins_100: ['Century', 'Win 100 rounds (single battles).'],
+    roundWins_500: ['Marshal', 'Win 500 rounds (single battles).'],
+    matchWins_1: ['Victor', 'Win your first match: be the first to reach the set number of round wins.'],
+    matchWins_5: ['Tournament champion', 'Win 5 matches (full series of rounds).'], matchWins_10: ['Champion', 'Win 10 matches (full series of rounds).'],
+    matchWins_50: ['Grandmaster', 'Win 50 matches (full series of rounds).'], matchWins_100: ['Immortal', 'Win 100 matches (full series of rounds).'],
+    bestStreak_3: ['Golden streak', 'Win 3 matches in a row.'], bestStreak_5: ['Unbeatable', 'Win 5 matches in a row.'], bestStreak_10: ['Dynasty', 'Win 10 matches in a row.'],
+    wins_easy_1: ['Recruit', 'Win a match against easy bots.'], wins_normal_1: ['Soldier', 'Win a match against normal bots.'],
+    wins_hard_1: ['Commando', 'Win a match against hard bots.'], wins_hard_10: ['Elite', 'Win 10 matches against hard bots.'],
+    zero: ['Shutout', 'Win a match against hard bots without losing a round.'],
+    comeback: ['Back from the dead', 'Win a match after the opponent was already 3 rounds ahead.'],
+    overtime: ['Nerves of steel', 'Win a match in overtime.'], blitz: ['Blitz', 'Win a round in under 10 seconds.'],
+    oneVsAll: ['One against all', 'Win a match alone against 3 hard bots.'],
+    noAim: ['No crosshair', 'Win a match against hard bots with the shot preview turned off.'],
+    mapWins_las_5: ['Lord of the Forest', 'Win 5 rounds in the Forest.'], mapWins_pole_5: ['Lord of the Field', 'Win 5 rounds on the Field.'],
+    mapWins_pustynia_5: ['Lord of the Desert', 'Win 5 rounds in the Desert.'], mapWins_zima_5: ['Lord of Winter', 'Win 5 rounds on the Winter map.'],
+    mapWins_miasto_5: ['Lord of the City', 'Win 5 rounds in the City.'], mapWins_noc_5: ['Lord of the Night', 'Win 5 rounds on the Night map.'],
+    mapWins_baza_5: ['Lord of the Base', 'Win 5 rounds in the Military Base.'], mapWins_ksiezyc_5: ['Lord of the Moon', 'Win 5 rounds on the Moon.'],
+    allMaps: ['Conqueror of lands', 'Win a round on each of the 8 maps.'],
+    fromBush: ['From cover', 'In the Forest, destroy a tank while standing in bushes.'],
+    withWind: ['With the wind', 'On the Field, destroy a tank from long range, in the wind.'],
+    hardGround: ['Solid ground', 'Win a round in the Desert without ever getting stuck in the sand.'],
+    skater: ['Skater', 'In Winter, destroy a tank while sliding on a frozen puddle.'],
+    silent: ['Silent killer', 'Win a round on the Night map firing at most 3 shells.'],
+    moonBank: ['Space billiards', 'On the Moon, destroy a tank with a shell after 3 bounces.'],
+    matchWins_lis_1: ['Foxy cunning', 'Win a match with the Fox.'], matchWins_lis_10: ['Fox master', 'Win 10 matches with the Fox.'],
+    matchWins_wilk_1: ['Wolf fang', 'Win a match with the Wolf.'], matchWins_wilk_10: ['Wolf master', 'Win 10 matches with the Wolf.'],
+    matchWins_mis_1: ['Bear strength', 'Win a match with the Bear.'], matchWins_mis_10: ['Bear master', 'Win 10 matches with the Bear.'],
+    allTypes: ['All-rounder', 'Win a match with each of the 3 tanks.'],
+    david: ['David and Goliath', 'Destroy a Bear with a Fox.'], roller: ['Steamroller', 'Destroy 3 tanks in one round with a Bear.'],
+    dist_8000: ['Driver', 'Drive 1 km (one maze cell is 10 m).'], dist_80000: ['Long hauler', 'Drive 10 km.'], dist_400000: ['Around the world', 'Drive 50 km.'],
+    matches_10: ['Regular', 'Play 10 matches.'], matches_100: ['Unstoppable', 'Play 100 matches.'],
+    days_3: ['Frequent visitor', 'Play on 3 different days.'], days_7: ['A week in the trenches', 'Play on 7 different days.'],
+    days_30: ['A month at the front', 'Play on 30 different days.'],
+    selfKills_1: ['Own goal', 'Destroy yourself with your own ricochet.'], selfKills_10: ['Unlucky', 'Destroy yourself with your own ricochet 10 times.'],
+    kamikaze: ['Kamikaze', 'Die in an explosion that also destroyed an opponent.'],
+    draw: ['Draw!', 'End a round in a draw, with everyone destroyed at once.'],
+    col25: ['Collector', 'Unlock 25 achievements.'], col50: ['Trophy hunter', 'Unlock 50 achievements.'],
+    col75: ['Master collector', 'Unlock 75 achievements.'], colAll: ['Complete set', 'Unlock all the other achievements.'],
+  },
+  missions: {
+    '1-1': ['First steps', 'Your first clash in the forest. Learn to drive and shoot before moving on. Bushes hide things well, you included.'],
+    '1-2': ['Behind the wall', 'Two gun posts hidden behind walls. Direct shots can\'t touch them, only ricochets count. The Wolf\'s long barrel helps a lot here.'],
+    '1-3': ['Forester', 'The Forester knows every bush here. His Wolf has double armor, and a fast Fox helps him. The Bear can take the most, so you go on the front line.'],
+    '2-1': ['Against the wind', 'The wind is strong on the field, and the Bear\'s heavy shells fly slowly, so the wind pushes them the most. Aim with an offset – the arrow on screen shows the wind.'],
+    '2-2': ['Waves', 'Four Foxes arrive one after another. Your Fox fires in bursts, so take them one at a time. Your tank is repaired between waves.'],
+    '2-3': ['Gale', 'Gale drives a Bear with double armor, and his shells bounce one extra time. The Wolf\'s long barrel lets you hit him from afar.'],
+    '3-1': ['Recon', 'Two fast Foxes patrol the desert. Drive in short bursts, because after a long drive your tank gets stuck in the sand.'],
+    '3-2': ['Survive', 'Two fast Foxes want to catch you. You don\'t have to destroy them, just hold out for 40 seconds. The Bear\'s armor can take a lot.'],
+    '3-3': ['Scorpion', 'Scorpion drives the fastest Fox in the desert, with thicker armor and more shells at once. He fights alone – speed against speed.'],
+    '4-1': ['Ice rink', 'On ice your tank slides further than you want, and even more on frozen puddles. Brake early and don\'t drive into ricochets.'],
+    '4-2': ['Last rounds', 'Only 15 shells are left in the magazine, and there are three opponents. Every shot has to count, ricochets too.'],
+    '4-3': ['Snowman', 'Snowman is a Bear with thicker armor, and his shells bounce up to 4 times. On ice it\'s easy to slide into your own ricochet.'],
+    '5-1': ['Patrol', 'Two tanks patrol streets full of burning wrecks. The heat burns at once, so keep well away from them.'],
+    '5-2': ['Take the point', 'The marked crossroads is at the other end of the city. Get there and hold it for 6 seconds before the bots catch you.'],
+    '5-3': ['Fireman', 'Fireman isn\'t afraid of fire – the burning wrecks don\'t hurt him. He drives a Wolf with thicker armor and fights alone.'],
+    '6-1': ['Sapper', 'The base is full of ammo crates. A crate that gets hit explodes and damages everything around it. Shoot the crates when an enemy is next to them.'],
+    '6-2': ['Raid', 'The evacuation point is on the other side of the base. Break through with the fast Fox – you don\'t have to destroy the enemies. Sandbags absorb shells.'],
+    '6-3': ['General', 'The General commands the base from a Bear with thicker armor. Ricochets don\'t work here, but the ammo crates can be your ally.'],
+    '7-1': ['The hunt', 'At night you only see what is lit. Two Foxes lurk in the dark, and every shot gives away their position. Yours too.'],
+    '7-2': ['Silence', 'You only have 6 shells, and every shot gives away your position. Wait until the opponent drives into the light.'],
+    '7-3': ['Ghost', 'Ghost drives a Wolf with thicker armor and fires without a muzzle flash, so you won\'t see him in the dark. The fast Fox will help you track him down.'],
+    '8-1': ['Drift', 'On the Moon tanks drift, and shells fly slower but bounce up to 5 times. Make use of ricochets.'],
+    '8-2': ['Waves in space', 'Four tanks in three waves, two at once at the end. On the Moon shells bounce up to 5 times, so watch out for ricochets. Your tank is repaired between waves.'],
+    '8-3': ['Finale', 'Gale, Scorpion and Ghost return to the Moon and fight you one after another. Your tank is repaired between duels. Choose your tank and finish the campaign.'],
+    'E-1': ['Elite Forester', 'The Forester is back and stronger: triple armor and two Commando-level Foxes. A good moment to try out the Tiger.'],
+    'E-2': ['Elite General', 'The General with triple armor and a Commando-level Wolf. Without the ammo crates it will be very hard.'],
+    'E-3': ['Elite Ghost', 'Ghost and his Shadow: both fire without a muzzle flash, and Ghost has triple armor. The hardest mission in the game.'],
+  },
+  stars: {
+    'Bez otrzymania trafienia': 'Take no hits',
+    'Zniszcz Leśnika rykoszetem': 'Destroy the Forester with a ricochet',
+    'Zniszcz Wichurę rykoszetem': 'Destroy Gale with a ricochet',
+    'Zniszcz Bałwana rykoszetem': 'Destroy Snowman with a ricochet',
+    'Ani razu nie ugrzęźnij w piasku': 'Never get stuck in the sand',
+    'Zniszcz choć jednego przeciwnika': 'Destroy at least one opponent',
+    'Bez poparzenia': 'Don\'t get burned',
+    'Zniszcz jednego wybuchem skrzyni': 'Destroy one with a crate explosion',
+    'Zniszcz obu wybuchami skrzyń': 'Destroy both with crate explosions',
+    'Zniszcz kogoś wybuchem skrzyni': 'Destroy someone with a crate explosion',
+    'Zniszcz czołg, którego nie widać': 'Destroy a tank you can\'t see',
+    'Zniszcz czołg po 3 odbiciach pocisku': 'Destroy a tank with a shell after 3 bounces',
+  },
+};
+// warunki gwiazdek z liczbami tłumaczone wzorem
+function starEn(t) {
+  let m;
+  if (EN.stars[t]) return EN.stars[t];
+  if ((m = t.match(/^Najwyżej (\d+) otrzyman\S+ trafie\S+$/))) return `Take at most ${m[1]} hit${m[1] === '1' ? '' : 's'}`;
+  if ((m = t.match(/^Wygraj w mniej niż (\d+) sekund$/))) return `Win in under ${m[1]} seconds`;
+  if ((m = t.match(/^Dojedź w mniej niż (\d+) sekund$/))) return `Get there in under ${m[1]} seconds`;
+  if ((m = t.match(/^Najwyżej (\d+) pocisków$/))) return `Use at most ${m[1]} shells`;
+  if ((m = t.match(/^Zostaw co najmniej (\d+) pociski$/))) return `Keep at least ${m[1]} shells`;
+  return null;
+}
+const catName = c => lang === 'en' ? EN.cats[c] || c : c;
+// pole obiektu w bieżącym języku; polski oryginał zostaje w ukrytym _pl_pole
+function swapText(obj, field, en) {
+  const k = '_pl_' + field;
+  if (!Object.prototype.hasOwnProperty.call(obj, k)) Object.defineProperty(obj, k, { value: obj[field], enumerable: false });
+  const pl = obj[k];
+  obj[field] = lang === 'en' && en != null ? (typeof en === 'function' ? en(pl) : en) : pl;
+}
+function applyLang() {
+  document.documentElement.lang = lang;
+  for (const k in TYPES) swapText(TYPES[k], 'name', EN.types[k]);
+  for (const k in TYPE_INFO) { swapText(TYPE_INFO[k], 'cls', EN.typeInfo[k][0]); swapText(TYPE_INFO[k], 'desc', EN.typeInfo[k][1]); }
+  STAT_NAMES.forEach((_, i) => swapText(STAT_NAMES, i, EN.stats[i]));
+  for (const k in THEMES) swapText(THEMES[k], 'name', EN.themes[k]);
+  for (const k in RULES) { swapText(RULES[k], 'name', EN.rules[k][0]); swapText(RULES[k], 'desc', EN.rules[k][1]); }
+  for (const p of PAINTS) { swapText(p, 'name', EN.paints[p.key][0]); swapText(p, 'desc', EN.paints[p.key][1]); }
+  for (const k in CAMP_LV) swapText(CAMP_LV, k, EN.levels[k]);
+  for (const c of CHAPTERS) swapText(c, 'name', pl => EN.chapters[pl]);
+  for (const k in ACH_NOTES) swapText(ACH_NOTES, k, EN.achNotes[k]);
+  for (const a of ACH) { const e = EN.ach[a.id]; swapText(a, 'name', e && e[0]); swapText(a, 'desc', e && e[1]); }
+  for (const m of MISSIONS) {
+    const e = EN.missions[m.id];
+    swapText(m, 'name', e && e[0]); swapText(m, 'desc', e && e[1]);
+    for (const c of m.stars) swapText(c, 'text', starEn);
+    for (const b of [...m.bots, ...(m.waves || []).flat()]) if (b.name) swapText(b, 'name', pl => EN.bosses[pl]);
+  }
+  // stałe napisy w HTML: data-en (polski oryginał zapamiętany przy pierwszej zmianie)
+  document.querySelectorAll('[data-en]').forEach(el => {
+    if (el._pl === undefined) el._pl = el.innerHTML;
+    el.innerHTML = lang === 'en' ? el.dataset.en : el._pl;
+  });
+  document.querySelectorAll('[data-en-aria]').forEach(el => {
+    if (el._plAria === undefined) el._plAria = el.getAttribute('aria-label');
+    el.setAttribute('aria-label', lang === 'en' ? el.dataset.enAria : el._plAria);
+  });
+  renderHints(); renderHow();
+}
+// zmiana języka z menu: podmiana tekstów i odświeżenie widocznego ekranu
+function setLang(v) {
+  if (v === lang) return;
+  settings.lang = lang = v;
+  saveSettings();
+  applyLang();
+  for (const t of tanks) t.label = null;
+  buildTankCards(); renderSplash(); renderSetup(); updateHud();
+  if (screen === 'achievements') renderAch();
+  if (screen === 'campaign') renderCampaign();
+  if (screen === 'medals') renderCabinet();
+}
+
 // ===================== APLIKACJA (PWA) =====================
 const IS_STANDALONE = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
 const ON_WEB = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -3600,11 +3822,14 @@ $('installBtn').onclick = async () => {
 };
 addEventListener('appinstalled', () => { $('installBtn').hidden = true; $('installHint').hidden = true; });
 if (ON_WEB && !IS_STANDALONE) { // Safari nie ma przycisku instalacji – pokazujemy instrukcję
-  if (IS_APPLE_TOUCH) { $('installHint').innerHTML = 'Zainstaluj grę: stuknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Dodaj do ekranu początkowego</b>.'; $('installHint').hidden = false; }
+  if (IS_APPLE_TOUCH) $('installHint').hidden = false;
 }
-if (!IS_TOUCH) { // komputer bez ekranu dotykowego → podpowiedź o wersji na klawiaturę
-  $('otherEdition').innerHTML = 'Grasz na komputerze? <a href="https://mjwawa.github.io/maze_tanks_web/">Wersja na klawiaturę, także dla dwóch graczy ›</a>';
-  $('otherEdition').hidden = false;
+if (!IS_TOUCH) $('otherEdition').hidden = false; // komputer bez ekranu dotykowego → podpowiedź o wersji na klawiaturę
+function renderHints() {
+  $('installHint').innerHTML = L('Zainstaluj grę: stuknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Dodaj do ekranu początkowego</b>.',
+    'Install the game: tap <b>Share</b> (the square with an arrow), then <b>Add to Home Screen</b>.');
+  $('otherEdition').innerHTML = L('Grasz na komputerze? <a href="https://mjwawa.github.io/maze_tanks_web/">Wersja na klawiaturę, także dla dwóch graczy ›</a>',
+    'Playing on a computer? <a href="https://mjwawa.github.io/maze_tanks_web/">Keyboard version, also for two players (Polish only) ›</a>');
 }
 
 // gra sama pauzuje, gdy przełączysz kartę albo aplikację. Dźwięk wstrzymujemy tutaj, bo w tle pętla gry
@@ -3642,6 +3867,7 @@ function loop(now) {
 fitCanvas();
 if (window.ResizeObserver) new ResizeObserver(fitCanvas).observe(canvas);
 addEventListener('resize', fitCanvas); // także zmiana devicePixelRatio (przeniesienie okna na inny monitor)
+applyLang();
 buildTankCards();
 goSplash();
 requestAnimationFrame(loop);
