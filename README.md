@@ -54,6 +54,10 @@ Każda mapa ma swoją zasadę specjalną. Jej nazwa pojawia się na początku ru
 - Jeśli Twój czołg zostanie zniszczony, a na polu zostało kilka botów, punkt dostaje bot, który Cię pokonał (a gdy zginiesz od własnego rykoszetu, żaru lub wybuchu – najmniej uszkodzony bot).
 - Kto pierwszy wygra 5 rund (albo 3 lub 7, do wyboru w menu), zdobywa **złoty medal**. Medale zbierają się w gablocie.
 
+## Osiągnięcia
+
+100 osiągnięć w 9 kategoriach: strzelanie (rykoszety, bilard, snajper), wybuchy i ogień, przetrwanie, zwycięstwa, mapy (po jednym zadaniu na każdą mapę), czołgi, wytrwałość, kolekcja i kilka ukrytych. Wiele ma kilka stopni (np. zniszcz 1, 10, 50… czołgów). Zdobyte osiągnięcie pokazuje się w grze, a pełną listę z postępem widać pod przyciskiem **Osiągnięcia** w menu – razem z ogólnym postępem w procentach. Postępy zapisują się w przeglądarce na tym urządzeniu.
+
 ## Rodzaje czołgów
 
 | | Lis (lekki) | Wilk (średni) | Niedźwiedź (ciężki) |
