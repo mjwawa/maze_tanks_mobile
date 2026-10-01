@@ -53,7 +53,7 @@ Każda mapa ma swoją zasadę specjalną. Jej nazwa pojawia się na początku ru
 - Pociski odbijają się od ścian i drzew. Uważaj, własny rykoszet też zabiera życie.
 - Pocisk ma kolor czołgu, który go wystrzelił. Gdy mruga, nie ma już odbić w zapasie – przy następnej ścianie zniknie.
 - Żółte kropki pod paskiem pancerza Twojego czołgu to pociski gotowe do strzału (zgaszona kropka – pocisk jeszcze leci).
-- Gdy trzymasz joystick strzału, kropki pokazują, dokąd poleci pocisk – do pierwszego odbicia (można to wyłączyć w ustawieniach).
+- Kropki przed czołgiem pokazują, dokąd poleci pocisk – do pierwszego odbicia (można to wyłączyć w ustawieniach).
 - Każda runda zaczyna się odliczaniem 3, 2, 1. Rundę wygrywa ostatni czołg na polu bitwy.
 - Jeśli Twój czołg zostanie zniszczony, a na polu zostało kilka botów, punkt dostaje bot, który Cię pokonał (a gdy zginiesz od własnego rykoszetu, żaru lub wybuchu – najmniej uszkodzony bot).
 - Kto pierwszy wygra 5 rund (albo 3 lub 7, do wyboru w menu), zdobywa **złoty medal**. Medale zbierają się w gablocie.
@@ -61,6 +61,19 @@ Każda mapa ma swoją zasadę specjalną. Jej nazwa pojawia się na początku ru
 ## Osiągnięcia
 
 100 osiągnięć w 9 kategoriach: strzelanie (rykoszety, bilard, snajper), wybuchy i ogień, przetrwanie, zwycięstwa, mapy (po jednym zadaniu na każdą mapę), czołgi, wytrwałość, kolekcja i kilka ukrytych. Wiele ma kilka stopni (np. zniszcz 1, 10, 50… czołgów). Zdobyte osiągnięcie pokazuje się w grze, a pełną listę z postępem widać pod przyciskiem **Osiągnięcia** w menu – razem z ogólnym postępem w procentach. Postępy zapisują się w przeglądarce na tym urządzeniu.
+
+## Malowania
+
+Za postęp w osiągnięciach odblokowują się malowania czołgu. Wybiera się je w garażu pod kartami czołgów, a wybrane malowanie działa na każdym czołgu, także w kampanii.
+
+| Postęp | Malowanie |
+|---|---|
+| 25% | **Moro** – plamy kamuflażu w odcieniach koloru gracza |
+| 50% | **Cyfrowe** – kamuflaż z pikseli i biała gwiazda na wieży |
+| 75% | **Płomienie** – ciemny kadłub, płomienie na przodzie i srebrna lufa |
+| 100% | **Złoty** – cały złoty, z paskiem w kolorze gracza, koroną na wieży i przesuwającym się błyskiem |
+
+Wzory zachowują kolor gracza, więc zawsze widać, kto jest kim. Boty jeżdżą bez malowań.
 
 ## Rodzaje czołgów
 
@@ -85,4 +98,4 @@ Po pierwszym uruchomieniu gra działa offline, także w samolocie czy w samochod
 
 Cała gra to plik `index.html` (HTML + JavaScript, rysowanie na canvasie, dźwięki generowane przez Web Audio API) i czcionki w folderze `fonts/`. Nie potrzebuje serwera gry ani instalacji – wystarczy zwykły hosting plików, np. GitHub Pages.
 
-Pliki aplikacji: `manifest.webmanifest` (nazwa, ikony), `sw.js` (praca offline – zapisuje stronę, czcionki i ikony), ikony `icon-512.png`, `icon-maskable-512.png`, `favicon-*.png`, `favicon.svg`, `apple-touch-icon.png`.
+Pliki aplikacji: `manifest.webmanifest` (nazwa, ikony), `sw.js` (praca offline – zapisuje stronę, czcionki i ikony), ikony `icon-512.png`, `icon-maskable-512.png`, `favicon-*.png`, `apple-touch-icon.png`.
